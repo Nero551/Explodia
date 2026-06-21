@@ -1,0 +1,12 @@
+res://Main/Shared/Utility/Attachment3D.cs
+res://Main/Shared/Utility/VisualEffect.cs
+res://Main/Shared/Scenes/Game.tscn
+res://Main/Shared/Assets/Shaders/Slime.gdshader
+res://Main/Shared/Services/VisualService.cs
+res://Main/Shared/Core/World.cs
+res://Main/Shared/Scenes/World.tscn
+res://Main/Client/World.cs
+res://Main/UI/Label.cs
+res://Main/Shared/Core/Game.cs
+res://Main/Shared/Scenes/Player.tscn
+res://Main/Shared/Entities/Player.cs

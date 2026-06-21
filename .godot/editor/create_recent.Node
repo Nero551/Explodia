@@ -1,0 +1,15 @@
+Label
+Control
+CanvasLayer
+Node
+AnimationPlayer
+CharacterBody3D
+Node3D
+CollisionShape3D
+GPUParticles3D
+Marker3D
+BoneAttachment3D
+MeshInstance3D
+AudioStreamPlayer
+AudioListener3D
+AudioStreamPlayer3D

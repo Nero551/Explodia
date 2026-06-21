@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "godot",
+            "request": "launch"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ca5ivjqvgcvon"]
+
+[ext_resource type="Script" uid="uid://ctwmhkgd72w16" path="res://Main/Shared/Core/Game.cs" id="1_s5iea"]
+[ext_resource type="Script" uid="uid://djxr0vyaoyb2i" path="res://Main/UI/Label.cs" id="2_flu5e"]
+
+[node name="Game" type="Node" unique_id=596900149]
+script = ExtResource("1_s5iea")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2027782012]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=556428618]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1859453563]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_flu5e")
