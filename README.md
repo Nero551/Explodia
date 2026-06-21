@@ -1,2 +1,3 @@
 # Explodia
-My main game project.
+
+My main game project. <https://discord.gg/ThT6FTkr>

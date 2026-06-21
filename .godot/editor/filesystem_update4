@@ -3,3 +3,5 @@ res://Main/UI/Label.cs
 res://Main/Shared/Utility/Attachment3D.cs
 res://Main/Shared/Utility/VisualEffect.cs
 res://Main/Shared/Core/Game.cs
+res://Main/Shared/Assets/Scenes/Game.tscn
+res://Main/Shared/Assets/Shaders/Slime.gdshader
