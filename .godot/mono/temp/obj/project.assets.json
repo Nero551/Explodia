@@ -36,6 +36,20 @@
             "related": ".xml"
           }
         }
+      },
+      "PULib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "GodotSharp": "4.7.0",
+          "GodotSharpEditor": "4.7.0"
+        },
+        "compile": {
+          "bin/placeholder/PULib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PULib.dll": {}
+        }
       }
     }
   },
@@ -78,13 +92,19 @@
         "lib/net8.0/GodotSharpEditor.dll",
         "lib/net8.0/GodotSharpEditor.xml"
       ]
+    },
+    "PULib/1.0.0": {
+      "type": "project",
+      "path": "../Libraries/PULib/PULib.csproj",
+      "msbuildProject": "../Libraries/PULib/PULib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Godot.SourceGenerators >= 4.7.0",
       "GodotSharp >= 4.7.0",
-      "GodotSharpEditor >= 4.7.0"
+      "GodotSharpEditor >= 4.7.0",
+      "PULib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -111,7 +131,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/nero551/Main/Dev/Libraries/PULib/PULib.csproj": {
+              "projectPath": "/home/nero551/Main/Dev/Libraries/PULib/PULib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
