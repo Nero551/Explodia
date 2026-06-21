@@ -16,7 +16,7 @@ public class Player : Entity
         
         if (NetworkService.IsClient())
         {
-            Game.World.Players.AddChild(ConnectTo(SceneService.CreateScene<Node>("Shared/Scenes/Player")));
+            Game.World.Players.AddChild(ConnectTo(SceneService.CreateScene<Node>("Player")));
         }
     }
 }

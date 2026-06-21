@@ -14,6 +14,8 @@ public partial class Game : Node
         services are just outside forces that help and arn't really a processor (Networking, Audio).
     */
 
+    //TODO- integrate the game to the new framework and network
+
     public override void _EnterTree()
     {
         game = this;

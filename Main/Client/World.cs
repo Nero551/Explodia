@@ -18,7 +18,7 @@ public partial class World : Node
 
     public static void Create()
     {
-        Game.World = SceneService.CreateScene<World>("Shared/Scenes/World");
+        Game.World = SceneService.CreateScene<World>("World");
         Game.game.AddChild(Game.World);
     }
 }

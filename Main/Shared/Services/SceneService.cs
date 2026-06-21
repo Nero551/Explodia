@@ -15,14 +15,12 @@ public static class SceneService
         }
         else
         {
-            scene = GD.Load<PackedScene>($"res://Main/{filepath}.tscn");
+            scene = GD.Load<PackedScene>($"res://Main/Shared/Assets/Scenes/{filepath}.tscn");
             CachedScenes[filepath] = scene;
         }
 
         if (scene == null)
-        {
             throw new Exception($"Couldn't Load Scene: {filepath}");
-        }
 
         return scene;
     }
@@ -31,7 +29,7 @@ public static class SceneService
     {
         return GetScene(filepath).Instantiate<T>();
     }
-    
+
     public static Node CreateScene(string filepath)
     {
         return GetScene(filepath).Instantiate<Node>();

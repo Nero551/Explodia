@@ -10,8 +10,6 @@ public class ServerRuntime : Runtime
         // Processor.Add<Processors.MovementProcessor>();
     }
 
-    //TODO- integrate the game to the new framework and network
-
     public override void Start()
     {
         Server.Start();
