@@ -18,3 +18,7 @@ res://Main/Shared/Entities/Character.cs
 res://Main/Shared/Assets/Scenes/Character.tscn
 res://Main/Shared/Utility/Camera.cs
 res://Main/Client/Processors/NodeSyncProcessor.cs
+res://Main/Shared/Blocks/AnimationBlock.cs
+res://Main/Shared/Blocks/StateBlock.cs
+res://Main/Shared/Enums/ReplicationMode.cs
+res://Main/Server/Processors/StateProcessor.cs

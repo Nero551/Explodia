@@ -10,12 +10,10 @@ sealed class ClientRuntime : Runtime
         base.AddProcessors();
         Processor.Add<InputProcessor>();
         Processor.Add<CameraProcessor>();
-        Processor.Add<NodeSyncProcessor>();
     }
 
     public override void Start()
     {
-        World.Create();
         Client.Start();
 
         base.Start();

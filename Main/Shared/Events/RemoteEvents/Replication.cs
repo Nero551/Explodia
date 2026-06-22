@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Godot;
 using Processors;
 
 namespace RemoteEvents.Replication;
+
 public class Replication : RemoteEvent
 {
     private int ArrayLength;
@@ -21,7 +23,16 @@ public class Replication : RemoteEvent
             WriteInt(replicationBox.EntityId);
             WriteInt(replicationBox.BlockId);
             WriteInt(replicationBox.FieldId);
-            WriteObject(replicationBox.Value);
+            bool isEnum = replicationBox.Value.GetType().IsEnum;
+            WriteBool(isEnum);
+            if (isEnum)
+            {
+                WriteEnum(replicationBox.Value);
+            }
+            else
+            {
+                WriteObject(replicationBox.Value);
+            }
         }
         return CreateBytesArray();
     }
@@ -29,16 +40,26 @@ public class Replication : RemoteEvent
     public override void Decode()
     {
         base.Decode();
-
         //* Reading Here
         ArrayLength = ReadInt();
         for (int i = 0; i < ArrayLength; i++)
+
         {
+
             int entityId = ReadInt();
             int blockId = ReadInt();
             int fieldId = ReadInt();
-            object value = ReadObject();
-            ReplicationQueue.Add(new ReplicationBox(entityId, blockId, fieldId, value));
+            bool isEnum = ReadBool();
+            object value;
+            if (isEnum)
+            {
+                value = ReadEnum();
+            }
+            else
+            {
+                value = ReadObject();
+            }
+            ReplicationQueue.Add(new ReplicationBox(entityId, blockId, fieldId, value) { IsEnum = isEnum });
         }
     }
 }

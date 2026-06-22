@@ -8,7 +8,7 @@ public partial class CBrain : Component
 
         if (ComponentHost.GetComponent<CAI>().Target == null)
         {
-            ComponentHost.GetComponent<CAI>().AIState = CAI.AIStates.Idle;
+            ComponentHost.GetComponent<CAI>().AIState = AIStates.Idle;
             return;
         }
 
@@ -16,11 +16,11 @@ public partial class CBrain : Component
         {
             if (ComponentHost.GetComponent<CActionVerifier>().CanAttack())
             {
-                ComponentHost.GetComponent<CAI>().AIState = CAI.AIStates.Attack;
+                ComponentHost.GetComponent<CAI>().AIState = AIStates.Attack;
             }
             return;
         }
-        ComponentHost.GetComponent<CAI>().AIState = CAI.AIStates.Follow;
+        ComponentHost.GetComponent<CAI>().AIState = AIStates.Follow;
         return;
     }
 }

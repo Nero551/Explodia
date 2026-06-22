@@ -216,11 +216,31 @@ public abstract class RemoteEvent() : Event
         };
     }
 
+    //TODO- add enum encoding and decoding
+
+    protected void WriteEnum(object value)
+    {
+        WriteBytes([Convert.ToByte(value)]);
+    }
+
     protected void WriteObject(object value)
     {
         int typeId = TypeToId[value.GetType()];
         WriteInt(typeId);
         IdToCoder[typeId].Encode.Invoke(this, [value]);
+    }
+
+    protected int ReadEnum()
+    {
+        return ReadByte();
+    }
+
+    protected byte ReadByte()
+    {
+        EnsureBytes(1);
+        byte value = BufferArray[ReadPos];
+        ReadPos++;
+        return value;
     }
 
     protected object ReadObject()

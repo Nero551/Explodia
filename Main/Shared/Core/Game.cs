@@ -10,6 +10,8 @@ public partial class Game : Node
         starts here. branches out to ServerRuntime and ClientRuntime. then branches out to processors.
         entities contain blocks. blocks are well. blocks of data
         services are just outside forces that help and arn't really a processor (Networking, Audio).
+
+        keep godot use to a minimum. godot physics and collisions on the server. godot nodes for visuals on the client
     */
 
     //TODO- integrate the game to the new framework and network

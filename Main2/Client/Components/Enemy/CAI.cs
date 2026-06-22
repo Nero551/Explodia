@@ -7,14 +7,6 @@ public partial class CAI : Component
     public AIStates AIState;
     public Node3D Target;
 
-    public enum AIStates
-    {
-        Attack,
-        Follow,
-        Wander,
-        Idle,
-    }
-
     public void SearchForTarget()
     {
         foreach (Player player in PlayersService.Players)

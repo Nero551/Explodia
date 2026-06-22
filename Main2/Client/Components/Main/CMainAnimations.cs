@@ -21,7 +21,7 @@ public partial class CMainAnimations : Component
 
     public void MainAnimations()
     {
-        if (ComponentHost.GetComponent<CMainStates>().MainState == CMainStates.MainStates.Moving)
+        if (ComponentHost.GetComponent<CMainStates>().MainState == MainStates.Moving)
         {
             if (ComponentHost.GetComponent<CStates>().CheckState("Sprinting"))
             {
@@ -32,7 +32,7 @@ public partial class CMainAnimations : Component
                 ComponentHost.GetComponent<CAnimations>().PlayAnim("Default/Walk", 3);
             }
         }
-        else if (ComponentHost.GetComponent<CMainStates>().MainState == CMainStates.MainStates.Idle)
+        else if (ComponentHost.GetComponent<CMainStates>().MainState == MainStates.Idle)
         {
             if (mainAnimatible.ActiveHand == null)
             {

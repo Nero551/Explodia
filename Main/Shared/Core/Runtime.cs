@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Processors;
 
 /// <summary>
 /// Core runtime manager for the Depths framework.
@@ -19,7 +20,8 @@ public abstract class Runtime
 
     protected virtual void AddProcessors()
     {
-        Processor.Add<Processors.ReplicationProcessor>();
+        Processor.Add<ReplicationProcessor>();
+        Processor.Add<NodeSyncProcessor>();
     }
 
     protected virtual void StartServices()

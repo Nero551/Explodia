@@ -5,7 +5,6 @@ public partial class Attachment3D : Marker3D
 {
     [Export] public Node3D AttachWhat;
     [Export] public Node3D AttachTo;
-
    
     public override void _Ready()
     {

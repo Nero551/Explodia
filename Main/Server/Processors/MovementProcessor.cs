@@ -39,12 +39,21 @@ public class MovementProcessor : Processor
                 movementBlock.Velocity.X = direction.X * movementBlock.Speed;
                 movementBlock.Velocity.Z = direction.Z * movementBlock.Speed;
 
-                
+
                 //TODO- play animations here.
             }
         }
 
-        transformBlock.Position += movementBlock.Velocity * (float)delta;
+        entity.GetNode<CharacterBody3D>().Velocity = movementBlock.Velocity;
+        entity.GetNode<CharacterBody3D>().MoveAndSlide();
+        transformBlock.Position = entity.GetNode<CharacterBody3D>().Position;
+        Gravity(entity, delta);
+    }
+
+    void Gravity(Entity entity, double delta)
+    {
+        var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
+        movementBlock.Velocity += entity.GetNode<CharacterBody3D>().GetGravity() * (float)delta * 1.5f;
     }
 
     void OnMoveRequest(RemoteEvents.MoveRequest evnt)

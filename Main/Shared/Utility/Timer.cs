@@ -1,7 +1,7 @@
-using Godot;
 using System;
+using Godot;
 
-public partial class Timer
+public class Timer
 {
     public float Duration;
     public float Remaining;

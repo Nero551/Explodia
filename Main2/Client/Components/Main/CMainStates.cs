@@ -3,14 +3,6 @@ using Godot;
 
 public partial class CMainStates : Component
 {
-    public enum MainStates
-    {
-        Jumping,
-        Moving,
-        Falling,
-        Idle,
-    }
-
     public MainStates MainState;
 
     public void HandleMainStates()

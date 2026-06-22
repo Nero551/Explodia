@@ -8,5 +8,6 @@ public class MovementBlock : Block
 {
     [Replicated(ReplicationMode.Unreliable)] public Vector2 MoveDirection;
     [Replicated(ReplicationMode.Reliable)] public float Speed = 5;
+    [Replicated(ReplicationMode.Reliable)] public float JumpPower = 5;
     [Replicated(ReplicationMode.Unreliable)] public Vector3 Velocity;
 }

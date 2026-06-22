@@ -12,6 +12,7 @@ public partial class World : Node
 
     public override void _EnterTree()
     {
+        Game.World = this;
         Workspace = GetNodeOrNull<Node>("Workspace");
         Players = GetNodeOrNull<Node>("Players");
         Lighting = GetNodeOrNull<Node>("Lighting");
@@ -20,7 +21,7 @@ public partial class World : Node
 
     public static void Create()
     {
-        Game.World = SceneService.CreateScene<World>("World");
+        SceneService.CreateScene<World>("World");
         ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Node>("Game").AddChild(Game.World);
     }
 }

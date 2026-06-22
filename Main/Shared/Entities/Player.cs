@@ -13,10 +13,7 @@ public class Player : Entity
         base.Initialize();
         Character = Entity.Create<Entities.Character>();
 
-        if (NetworkService.IsClient())
-        {
-            Character.GetNode<CharacterBody3D>().Name = UserId.ToString();
-            Game.World.Players.AddChild(ConnectTo(SceneService.CreateScene<Node>("Player")));
-        }
+        Character.GetNode<CharacterBody3D>().Name = UserId.ToString();
+        Game.World.Players.AddChild(ConnectTo(SceneService.CreateScene<Node>("Player")));
     }
 }

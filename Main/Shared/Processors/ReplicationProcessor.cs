@@ -69,7 +69,6 @@ public class ReplicationProcessor : Processor
                     || !Equals(value, old))
                 {
                     lastReplicatedFields[replicatedFieldId] = value;
-
                     ReplicationBox replicationBox = new(entity.Id, blockId, replicatedFieldId, value);
                     ReplicationQueues[replicatedField.Attribute.Mode].Add(replicationBox);
                 }
@@ -84,7 +83,14 @@ public class ReplicationProcessor : Processor
             var entity = Game.Runtime.Entities[replicationBox.EntityId];
             var block = entity.GetBlock(replicationBox.BlockId);
             var replicatedField = block.ReplicatedFields[replicationBox.FieldId];
-            replicatedField.Field.SetValue(block, replicationBox.Value);
+            if (replicationBox.IsEnum)
+            {
+                replicatedField.Field.SetValue(block, Enum.ToObject(replicatedField.Field.FieldType, replicationBox.Value));
+            }
+            else
+            {
+                replicatedField.Field.SetValue(block, replicationBox.Value);
+            }
         }
     }
 }
