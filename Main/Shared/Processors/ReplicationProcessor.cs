@@ -25,7 +25,7 @@ public class ReplicationProcessor : Processor
         if (!NetworkService.IsServer())
             return;
         elapsed += delta;
-        if (elapsed < 0.1)
+        if (elapsed < 0.05)
             return;
 
         elapsed = 0;

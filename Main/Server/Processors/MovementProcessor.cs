@@ -25,8 +25,7 @@ public class MovementProcessor : Processor
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
         var transformBlock = entity.GetBlock<Blocks.TransformBlock>();
 
-        movementBlock.Velocity.X = Mathf.MoveToward(movementBlock.Velocity.X, 0, movementBlock.Speed);
-        movementBlock.Velocity.Z = Mathf.MoveToward(movementBlock.Velocity.Z, 0, movementBlock.Speed);
+        VelocityDecay(entity);
 
         if (movementBlock.MoveDirection != Vector2.Zero)
         {
@@ -44,6 +43,8 @@ public class MovementProcessor : Processor
             }
         }
 
+        BodyRotation(entity, delta);
+
         entity.GetNode<CharacterBody3D>().Velocity = movementBlock.Velocity;
         entity.GetNode<CharacterBody3D>().MoveAndSlide();
         transformBlock.Position = entity.GetNode<CharacterBody3D>().Position;
@@ -54,6 +55,30 @@ public class MovementProcessor : Processor
     {
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
         movementBlock.Velocity += entity.GetNode<CharacterBody3D>().GetGravity() * (float)delta * 1.5f;
+    }
+
+    void VelocityDecay(Entity entity)
+    {
+        var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
+        movementBlock.Velocity.X = Mathf.MoveToward(movementBlock.Velocity.X, 0, movementBlock.Speed);
+        movementBlock.Velocity.Z = Mathf.MoveToward(movementBlock.Velocity.Z, 0, movementBlock.Speed);
+    }
+
+    void BodyRotation(Entity entity, double delta)
+    {
+        //TODO- make this work.
+        var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
+        var transformBlock = entity.GetBlock<Blocks.TransformBlock>();
+        Vector3 targetDir = movementBlock.Velocity;
+        targetDir.Y = 0;
+        targetDir = targetDir.Normalized();
+
+        if (targetDir.LengthSquared() > 0.001f)
+        {
+            GD.Print(transformBlock.Basis.Determinant());
+            Basis target = Basis.LookingAt(targetDir, Vector3.Up).Orthonormalized();
+            transformBlock.Basis = target;
+        }
     }
 
     void OnMoveRequest(RemoteEvents.MoveRequest evnt)

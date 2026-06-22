@@ -230,6 +230,22 @@ public abstract class RemoteEvent() : Event
         IdToCoder[typeId].Encode.Invoke(this, [value]);
     }
 
+    [Encode(typeof(Quaternion))]
+    protected void WriteQuaternion(Quaternion value)
+    {
+
+        WriteFloat(value.X);
+        WriteFloat(value.Y);
+        WriteFloat(value.Z);
+        WriteFloat(value.W);
+    }
+
+    [Decode(typeof(Quaternion))]
+    protected Quaternion ReadQuaternion()
+    {
+        return new Quaternion(ReadFloat(), ReadFloat(), ReadFloat(), ReadFloat());
+    }
+
     protected int ReadEnum()
     {
         return ReadByte();

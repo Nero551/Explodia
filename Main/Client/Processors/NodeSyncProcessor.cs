@@ -31,7 +31,8 @@ public class NodeSyncProcessor : Processor
         {
             var node = entity.GetNode<CharacterBody3D>();
             var target = entity.GetBlock<Blocks.TransformBlock>().Position;
-            node.Position = node.Position.Lerp(target, 0.1f);
+            node.Position = node.Position.Lerp(target, 0.3f);
+            node.Basis = node.Basis.Slerp(entity.GetBlock<Blocks.TransformBlock>().Basis, 0.2f);
         }
     }
 }
