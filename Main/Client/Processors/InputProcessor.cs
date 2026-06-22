@@ -7,7 +7,6 @@ namespace Processors;
 
 public class InputProcessor : Processor
 {
-
     public override void Start()
     {
         base.Start();

@@ -5,9 +5,9 @@ using Godot;
 public partial class World : Node
 {
     // The World The Client Sees.
-    public Node Hitboxes;
     public Node Players;
-    public Node Characters;
+    public Node Workspace;
+    public Node Lighting;
     public SpringArm3D Camera;
     public float MaxSpringLength = 6;
     public float MinSpringLength = 1;
@@ -15,9 +15,9 @@ public partial class World : Node
 
     public override void _EnterTree()
     {
+        Workspace = GetNodeOrNull<Node>("Workspace");
         Players = GetNodeOrNull<Node>("Players");
-        Characters = GetNodeOrNull<Node>("Characters");
-        Hitboxes = GetNodeOrNull<Node>("Hitboxes");
+        Lighting = GetNodeOrNull<Node>("Lighting");
         Camera = GetNodeOrNull<SpringArm3D>("Camera");
     }
 

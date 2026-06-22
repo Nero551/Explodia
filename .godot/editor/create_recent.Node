@@ -1,7 +1,7 @@
+Node
 Label
 Control
 CanvasLayer
-Node
 AnimationPlayer
 CharacterBody3D
 Node3D
@@ -12,4 +12,3 @@ BoneAttachment3D
 MeshInstance3D
 AudioStreamPlayer
 AudioListener3D
-AudioStreamPlayer3D

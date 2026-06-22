@@ -12,7 +12,7 @@ public class Character : Entity
 
         if (NetworkService.IsClient())
         {
-            Game.World.Characters.AddChild(ConnectTo(SceneService.CreateScene<CharacterBody3D>("Character")));
+            Game.World.Workspace.GetNode<Node>("Characters").AddChild(ConnectTo(SceneService.CreateScene<CharacterBody3D>("Character")));
         }
     }
 }
