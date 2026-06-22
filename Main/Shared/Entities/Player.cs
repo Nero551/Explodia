@@ -12,8 +12,6 @@ public class Player : Entity
     {
         base.Initialize();
         Character = Entity.Create<Entities.Character>();
-        // AddBlock<Blocks.TransformBlock>();
-        // AddBlock<Blocks.MovementBlock>();
 
         if (NetworkService.IsClient())
         {

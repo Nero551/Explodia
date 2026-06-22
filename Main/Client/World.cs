@@ -8,7 +8,6 @@ public partial class World : Node
     public Node Players;
     public Node Workspace;
     public Node Lighting;
-
     public Camera Camera;
 
     public override void _EnterTree()
