@@ -57,21 +57,5 @@ public class CameraProcessor : Processor
             return;
         Game.World.Camera.GlobalPosition = node3D.GlobalPosition;
     }
-
-    // public void ApplyCamRelativeMovement()
-    // {
-    //     Vector3 forward = -SpringArm.GlobalTransform.Basis.Z;
-    //     Vector3 right = SpringArm.GlobalTransform.Basis.X;
-    //     forward.Y = 0;
-    //     right.Y = 0;
-    //     forward = forward.Normalized();
-    //     right = right.Normalized();
-
-    //     Vector3 vel = ComponentHost.GetComponent<CCharacter>().Character.cMovement.MovementVelocity;
-
-    //     Vector3 direction = right * vel.X + forward * vel.Z;
-    //     direction.Y = vel.Y;
-    //     ComponentHost.GetComponent<CCharacter>().Character.cMovement.MovementVelocity = direction;
-    // }
 }
 

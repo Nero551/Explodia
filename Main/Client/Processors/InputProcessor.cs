@@ -27,10 +27,23 @@ public class InputProcessor : Processor
         }
 
         elapsed += delta;
-        if (elapsed >= 0.05)
+        if (elapsed >= 0.1)
         {
             var moveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
-            NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Character.Id, moveDirection);
+            var cameraForward = Game.World.Camera.GlobalTransform.Basis.Z;
+            var cameraRight = Game.World.Camera.GlobalTransform.Basis.X;
+
+            cameraForward.Y = 0;
+            cameraRight.Y = 0;
+
+            cameraForward = cameraForward.Normalized();
+            cameraRight = cameraRight.Normalized();
+
+            Vector2 cameraRelativeMoveDirection = new(
+                -cameraForward.X * moveDirection.Y + cameraRight.X * moveDirection.X,
+                cameraForward.Z * moveDirection.Y - cameraRight.Z * moveDirection.X);
+            cameraRelativeMoveDirection = cameraRelativeMoveDirection.Normalized();
+            NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Character.Id, cameraRelativeMoveDirection);
             elapsed = 0;
         }
     }

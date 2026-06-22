@@ -24,6 +24,9 @@ public class NodeSyncProcessor : Processor
     public override void PhysicsProcessEntities(Entity entity, double delta)
     {
         base.PhysicsProcessEntities(entity, delta);
+        if (entity.ConnectedNode == null)
+            return;
+
         if (entity.HasBlock<Blocks.TransformBlock>())
         {
             var node = entity.GetNode<CharacterBody3D>();

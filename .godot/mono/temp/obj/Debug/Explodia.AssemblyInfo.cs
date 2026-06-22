@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Explodia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9e526de2fc9b1511e5aa1809fe1e2574eb21852")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8f8f4310d0f31f23b4719d6299b660d7eb6cfe6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Explodia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Explodia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

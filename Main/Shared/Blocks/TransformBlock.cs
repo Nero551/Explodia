@@ -7,4 +7,5 @@ public class TransformBlock : Block
 {
     [Replicated(ReplicationMode.Unreliable)] public Basis Basis;
     [Replicated(ReplicationMode.Unreliable)] public Vector3 Position;
+    [Replicated(ReplicationMode.Unreliable)] public Vector3 Rotation;
 }
