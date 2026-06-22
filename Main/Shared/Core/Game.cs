@@ -3,8 +3,6 @@ using Godot;
 
 public partial class Game : Node
 {
-    public static Node game;
-
     public static World World;
     public static Runtime Runtime;
     /*
@@ -18,7 +16,6 @@ public partial class Game : Node
 
     public override void _EnterTree()
     {
-        game = this;
         Runtime = NetworkService.IsServer() ? new ServerRuntime() : new ClientRuntime();
         Runtime.Start();
     }

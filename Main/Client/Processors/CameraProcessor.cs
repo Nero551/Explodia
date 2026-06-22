@@ -6,11 +6,6 @@ namespace Processors;
 
 public class CameraProcessor : Processor
 {
-    public override void Start()
-    {
-        base.Start();
-    }
-
     public override void Process(double delta)
     {
         base.Process(delta);
@@ -26,14 +21,13 @@ public class CameraProcessor : Processor
 
     public void ZoomCamera()
     {
-        SpringArm3D camera = Game.World.Camera;
-        if (Input.IsActionJustPressed("Zoom In") && camera.SpringLength > Game.World.MinSpringLength)
+        Camera camera = Game.World.Camera;
+        if (Input.IsActionJustPressed("Zoom In") && camera.SpringLength > camera.MinSpringLength)
         {
             camera.SpringLength = Mathf.Lerp(
                 camera.SpringLength, camera.SpringLength - 1.5f, 0.3f);
         }
-        else if (Input.IsActionJustPressed("Zoom Out") &&
-         camera.SpringLength < Game.World.MaxSpringLength)
+        else if (Input.IsActionJustPressed("Zoom Out") && camera.SpringLength < camera.MaxSpringLength)
         {
             camera.SpringLength = Mathf.Lerp(
                 camera.SpringLength, camera.SpringLength + 1.5f, 0.3f);
@@ -44,11 +38,12 @@ public class CameraProcessor : Processor
     float verticalRotation;
     public void RotateCamera(InputEvent @event)
     {
+        Camera camera = Game.World.Camera;
         if (@event is InputEventMouseMotion mouseMotion &&
             Input.MouseMode == Input.MouseModeEnum.Captured)
         {
-            horizontalRotation -= mouseMotion.Relative.X * Game.World.MouseSensitivity;
-            verticalRotation -= mouseMotion.Relative.Y * Game.World.MouseSensitivity;
+            horizontalRotation -= mouseMotion.Relative.X * camera.MouseSensitivity;
+            verticalRotation -= mouseMotion.Relative.Y * camera.MouseSensitivity;
 
             verticalRotation = Mathf.Clamp(verticalRotation, Mathf.DegToRad(-75), Mathf.DegToRad(45));
 

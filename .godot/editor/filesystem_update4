@@ -16,3 +16,4 @@ res://Main/Shared/Assets/Scenes/World.tscn
 res://Main/Shared/Entities/Player.cs
 res://Main/Shared/Entities/Character.cs
 res://Main/Shared/Assets/Scenes/Character.tscn
+res://Main/Shared/Utility/Camera.cs
