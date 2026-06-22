@@ -12,21 +12,26 @@ public class InputProcessor : Processor
         base.Start();
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
+
+    double elapsed = 0;
     public override void Process(double delta)
     {
         base.Process(delta);
-
-        var movementBlock = Client.Player?.Character?.GetBlock<Blocks.MovementBlock>();
+        if (Client.Player == null || Client.Player.Character == null)
+            return;
 
         if (Input.IsActionJustPressed("MouseCapture"))
         {
             Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ?
                 Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
         }
-        if (movementBlock != null)
+
+        elapsed += delta;
+        if (elapsed >= 0.05)
         {
-            movementBlock.MoveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
-            NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Character.Id, movementBlock.MoveDirection);
+            var moveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
+            NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Character.Id, moveDirection);
+            elapsed = 0;
         }
     }
 }
