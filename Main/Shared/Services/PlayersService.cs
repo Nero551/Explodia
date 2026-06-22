@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Godot;
 
 public static class PlayersService
 {
@@ -11,6 +9,7 @@ public static class PlayersService
     {
         Entities.Player player = Entity.Create<Entities.Player>();
         player.ConnectedNode?.Name = userId.ToString();
+        player.UserId = userId;
         Players.Add(userId, player);
 
         return player;

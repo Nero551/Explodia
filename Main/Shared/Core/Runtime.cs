@@ -59,4 +59,12 @@ public abstract class Runtime
             Processors[i].PhysicsProcess(delta);
         }
     }
+
+    public virtual void InputProcess(InputEvent inputEvent)
+    {
+        for (int i = 0; i < Processors.Count; i++)
+        {
+            Processors[i].InputProcess(inputEvent);
+        }
+    }
 }

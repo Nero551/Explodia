@@ -65,4 +65,17 @@ public abstract class Processor
             }
         }
     }
+
+    public virtual void InputProcess(InputEvent inputEvent)
+    {
+        for (int i = 0; i < Game.Runtime.Entities.Count; i++)
+        {
+            if (HasRequiredBlocks(Game.Runtime.Entities[i]))
+            {
+                InputProcessEntities(Game.Runtime.Entities[i], inputEvent);
+            }
+        }
+    }
+
+    public virtual void InputProcessEntities(Entity entity, InputEvent inputEvent) { }
 }

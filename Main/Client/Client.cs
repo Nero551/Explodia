@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Godot;
 
 public static class Client
@@ -8,21 +7,20 @@ public static class Client
     public static ENetConnection Connection;
     public static Entities.Player Player;
     public static int PeerId; //* this is the signature for the network connection ITSELF
-    public static int UserId; //* the entry to the client's data in the DB
 
     public static void Start()
     {
         EventService.Subscribe<RemoteEvents.CreatePlayer>((evnt) =>
         {
             Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
-            if (UserId == evnt.UserId)
+            if (Player.UserId == evnt.UserId)
             {
                 Player = player;
             }
         });
         EventService.Subscribe<RemoteEvents.RemovePlayer>((evnt) => PlayersService.RemovePlayer(evnt.UserId));
 
-        EventService.Subscribe<RemoteEvents.ClientInfo>(OnClientInfo);
+        EventService.Subscribe<RemoteEvents.SetupClient>(OnSetupClient);
         if (NetworkService.IsClient())
         {
             Connection = new ENetConnection();
@@ -79,13 +77,15 @@ public static class Client
         GD.Print("Connected To Server");
     }
 
-    static void OnClientInfo(RemoteEvents.ClientInfo evnt)
+    static void OnSetupClient(RemoteEvents.SetupClient evnt)
     {
+        Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
         PeerId = evnt.PeerId;
-        UserId = evnt.UserId;
+        Player = player;
+        
         foreach (int playerId in evnt.PlayerIds)
         {
-            if (playerId != UserId)
+            if (playerId != Player.UserId)
             {
                 PlayersService.CreatePlayer(playerId);
             }

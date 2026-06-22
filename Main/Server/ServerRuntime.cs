@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class ServerRuntime : Runtime
+sealed class ServerRuntime : Runtime
 {
     protected override void AddProcessors()
     {

@@ -12,7 +12,7 @@ public abstract class RemoteEvent() : Event
 {
     public virtual int Flag { get; }
 
-    public int SenderPeerId;
+    public Entities.Player Player;
     protected object[] DecodedData;
 
     protected object[] Data;

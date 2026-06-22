@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class ClientRuntime : Runtime
+sealed class ClientRuntime : Runtime
 {
     protected override void AddProcessors()
     {
         base.AddProcessors();
-        // Processor.Add<Processors.InputProcessor>();
+        Processor.Add<Processors.InputProcessor>();
+        Processor.Add<Processors.CameraProcessor>();
     }
 
     public override void Start()

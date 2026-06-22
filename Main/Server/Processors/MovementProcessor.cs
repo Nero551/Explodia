@@ -20,7 +20,7 @@ public class MovementProcessor : Processor
     }
 
     public override void PhysicsProcessEntities(Entity entity, double delta)
-    {
+    {   
         base.PhysicsProcessEntities(entity, delta);
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
         var transformBlock = entity.GetBlock<Blocks.TransformBlock>();

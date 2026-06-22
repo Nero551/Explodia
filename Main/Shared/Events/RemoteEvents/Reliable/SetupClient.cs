@@ -2,7 +2,7 @@ using Godot;
 
 namespace RemoteEvents;
 
-public class ClientInfo : RemoteEvent
+public class SetupClient : RemoteEvent
 {
     public int UserId;
     public int PeerId;
@@ -14,10 +14,12 @@ public class ClientInfo : RemoteEvent
     {
         base.Encode();
 
-        Server.ClientInfo clientInfo = Data[0] as Server.ClientInfo;
-        WriteInt(clientInfo.UserId);
-        WriteInt(clientInfo.PeerId);
-        WriteIntArray((int[])Data[1]);
+        int peerId = (int)Data[0];
+        int userId = (int)Data[1];
+        int[] playerIds = (int[])Data[2];
+        WriteInt(peerId);
+        WriteInt(userId);
+        WriteIntArray(playerIds);
 
         return CreateBytesArray();
     }
@@ -25,8 +27,8 @@ public class ClientInfo : RemoteEvent
     public override void Decode()
     {
         base.Decode();
-        UserId = ReadInt();
         PeerId = ReadInt();
+        UserId = ReadInt();
         PlayerIds = ReadIntArray();
     }
 }

@@ -4,7 +4,7 @@ using Godot;
 public partial class Game : Node
 {
     public static Node game;
-    
+
     public static World World;
     public static Runtime Runtime;
     /*
@@ -33,5 +33,11 @@ public partial class Game : Node
     {
         base._PhysicsProcess(delta);
         Runtime.PhysicsProcess(delta);
+    }
+
+    public override void _Input(InputEvent inputEvent)
+    {
+        base._Input(inputEvent);
+        Runtime.InputProcess(inputEvent);
     }
 }

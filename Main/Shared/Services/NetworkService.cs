@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -17,10 +18,11 @@ using Godot;
 /// RemoteEvents contain both the networking logic and the data visible to receivers.
 /// NetworkService automatically fires the RemoteEvent after Decode() completes.
 /// SenderPeerId is assigned before Decode() runs and equals 0 when sent by the server.
+/// If SenderPeerId is NOT equal to 0 then the Player field of RemoteEvent won't equal null
 /// </remarks>
 /// 
 public static class NetworkService
-{ 
+{
     public static int PacketDebounce = 5;
 
     public static BiDictionary<int, Type> RemoteEvents = new();
@@ -52,8 +54,7 @@ public static class NetworkService
         return true;
     }
 
-    public static void SendToServer<T>(params object[] data)
-        where T : RemoteEvent, new()
+    public static void SendToServer<T>(params object[] data) where T : RemoteEvent, new()
     {
         if (IsClient())
         {
@@ -62,14 +63,14 @@ public static class NetworkService
         }
     }
 
-    public static void SendToClient<T>(int peerId, params object[] data)
-        where T : RemoteEvent, new()
+    public static void SendToClient<T>(int peerId, params object[] data) where T : RemoteEvent, new()
     {
         if (IsServer())
         {
             if (Server.ClientInfos.ContainsKey(peerId))
             {
                 T remoteEvent = RemoteEvent.Create<T>(data);
+
                 Server.ClientInfos[peerId].Peer.Send(
                     0,
                     remoteEvent.Encode(),
@@ -78,16 +79,36 @@ public static class NetworkService
         }
     }
 
-    public static void SendToAllClients<T>(params object[] data)
-        where T : RemoteEvent, new()
+    public static void SendToAllClients<T>(params object[] data) where T : RemoteEvent, new()
     {
         if (IsServer())
         {
             T remoteEvent = RemoteEvent.Create<T>(data);
+
             Server.Connection.Broadcast(
                 0,
                 remoteEvent.Encode(),
                 remoteEvent.Flag);
+        }
+    }
+
+    public static void SendToAllExcept<T>(int exceptPeerId, params object[] data) where T : RemoteEvent, new()
+    {
+        if (IsServer())
+        {
+            foreach (KeyValuePair<int, Server.ClientInfo> pair in Server.ClientInfos)
+            {
+                var peerId = pair.Key;
+
+                if (peerId == exceptPeerId)
+                    return;
+
+                T remoteEvent = RemoteEvent.Create<T>(data);
+
+                Server.ClientInfos[peerId].Peer.Send(
+                    0,
+                    remoteEvent.Encode(), remoteEvent.Flag);
+            }
         }
     }
 
@@ -104,7 +125,11 @@ public static class NetworkService
         remoteEvent.WriteBytes(data);
         remoteEvent.CreateBytesArray();
 
-        remoteEvent.SenderPeerId = senderPeerId;
+        if (senderPeerId != 0)
+        {
+            remoteEvent.Player = PlayersService.GetPlayer(Server.ClientInfos[senderPeerId].UserId);
+        }
+
         remoteEvent.Decode();
         remoteEvent.Fire();
     }

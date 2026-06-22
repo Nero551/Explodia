@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Godot;
-using Godot.NativeInterop;
-using Microsoft.VisualBasic;
 
 public static partial class Server
 {
@@ -12,7 +9,6 @@ public static partial class Server
     {
         public int UserId;
         public int PeerId;
-        public Entities.Player Player;
         public ENetPacketPeer Peer;
     }
 
@@ -42,7 +38,7 @@ public static partial class Server
 
     public static void Process(double delta)
     {
-            HandlePackets();
+        HandlePackets();
     }
 
     private static void HandlePackets()
@@ -95,13 +91,13 @@ public static partial class Server
             PeerId = peerId,
             Peer = peer
         };
-        clientInfo.Player = PlayersService.CreatePlayer(clientInfo.UserId);
+        PlayersService.CreatePlayer(clientInfo.UserId);
 
         peer.SetMeta("ClientInfo", clientInfo);
         ClientInfos[peerId] = clientInfo;
 
-        NetworkService.SendToClient<RemoteEvents.ClientInfo>(peerId, clientInfo, PlayersService.Players.Keys.ToArray());
-        NetworkService.SendToAllClients<RemoteEvents.CreatePlayer>(clientInfo.UserId);
+        NetworkService.SendToClient<RemoteEvents.SetupClient>(peerId, peerId, clientInfo.UserId, PlayersService.Players.Keys.ToArray());
+        NetworkService.SendToAllExcept<RemoteEvents.CreatePlayer>(peerId, clientInfo.UserId);
         GD.Print($"Client Connected With ID {peerId}");
         EventService.Fire(new Events.Network.ClientConnected(peerId));
     }

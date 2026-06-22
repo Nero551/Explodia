@@ -7,30 +7,28 @@ namespace Processors;
 
 public class InputProcessor : Processor
 {
-    public override bool HasRequiredBlocks(Entity entity)
+
+    public override void Start()
     {
-        return entity.HasBlock<Blocks.InputBlock, Blocks.MovementBlock>();
+        base.Start();
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
-
-    public override void ProcessEntities(Entity entity, double delta)
+    public override void Process(double delta)
     {
-        base.ProcessEntities(entity, delta);
-        var node = entity.GetNode<CharacterBody3D>();
-        var target = entity.GetBlock<TransformBlock>().Position;
-        node.Position = node.Position.Lerp(target, 0.05f);
-
-        if (entity is not Entities.Player player)
+        base.Process(delta);
+        // var node = entity.GetNode<CharacterBody3D>();
+        // var target = entity.GetBlock<TransformBlock>().Position;
+        // node.Position = node.Position.Lerp(target, 0.05f);
+        // var movementBlock = Client.Player.GetBlock<Blocks.MovementBlock>();
+        // movementBlock.MoveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
+        // NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Id, movementBlock.MoveDirection);
+        
+        if (Input.IsActionJustPressed("MouseCapture"))
         {
-            return;
-        }
-        int userId = PlayersService.GetUserId(player);
-        if (userId != Client.UserId)
-        {
-            return;
+            Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ?
+                Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
         }
 
-        var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
-        movementBlock.MoveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
-        NetworkService.SendToServer<RemoteEvents.MoveRequest>(entity.Id, movementBlock.MoveDirection);
+
     }
 }
