@@ -46,9 +46,6 @@ public class MovementProcessor : Processor
             {
                 movementBlock.Velocity.X = direction.X * movementBlock.Speed;
                 movementBlock.Velocity.Z = direction.Z * movementBlock.Speed;
-                //TODO- Animations system. perhaps a processor? play animations here.
-                //*Needs: 1- play/stop animations  2- track current animation 3- data about the current animation
-                //*       4- Animation priority   5- add animations from library
             }
         }
 

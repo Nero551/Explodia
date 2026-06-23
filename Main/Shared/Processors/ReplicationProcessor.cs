@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using RemoteEvents.Replication;
@@ -35,13 +36,13 @@ public class ReplicationProcessor : Processor
         var reliable = ReplicationQueues[ReplicationMode.Reliable];
         if (reliable.Count != 0)
         {
-            NetworkService.SendToAllClients<RemoteEvents.Replication.UnreliableReplication>(
+            NetworkService.SendToAllClients<RemoteEvents.Replication.ReliableReplication>(
                 reliable);
             reliable.Clear();
         }
         if (unreliable.Count != 0)
         {
-            NetworkService.SendToAllClients<RemoteEvents.Replication.ReliableReplication>(
+            NetworkService.SendToAllClients<RemoteEvents.Replication.UnreliableReplication>(
                 unreliable);
             unreliable.Clear();
         }
@@ -89,6 +90,6 @@ public class ReplicationProcessor : Processor
             {
                 replicatedField.Field.SetValue(block, replicationBox.Value);
             }
-        }
+         }
     }
 }

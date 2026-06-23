@@ -34,11 +34,6 @@ public class InputProcessor : Processor
         //     character.cCombat.M2();
         // }
 
-        // if (Input.IsActionJustPressed("ExitGame"))
-        // {
-        //     Input.MouseMode = Input.MouseModeEnum.Visible;
-        // }
-
         // if (Input.IsActionJustPressed("Jump"))
         // {
         //     character.cMovement.Jump();

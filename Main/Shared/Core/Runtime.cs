@@ -13,7 +13,7 @@ using Processors;
 /// 
 public abstract class Runtime
 {
-    public HashSet<Processor> Processors = [];
+    public List<Processor> Processors = [];
     public HashSet<Entity> Entities = [];
     public int NextEntityId = 0;
 

@@ -13,7 +13,7 @@ public static class TimerService
         return timer;
     }
 
-    //TODO- a way to pass in the entitity as a parameter to make per entity timers
+    //TODO- a way to pass in the entity as a parameter to make per entity timers
 
     public static void Process(double delta)
     {
