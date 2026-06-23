@@ -24,7 +24,7 @@ public class InputProcessor : Processor
             Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ?
                 Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
         }
-        
+
         // if (Input.IsActionPressed("M1"))
         // {
         //     character.cCombat.M1();
@@ -44,17 +44,10 @@ public class InputProcessor : Processor
         //     character.cMovement.Jump();
         // }
 
-        // if (Input.IsActionJustPressed("Sprint"))
-        // {
-        //     if (character.cStates.CheckState("Sprinting"))
-        //     {
-        //         character.cStates.RemoveState("Sprinting");
-        //     }
-        //     else
-        //     {
-        //         character.cStates.AddState("Sprinting");
-        //     }
-        // }
+        if (Input.IsActionJustPressed("Sprint"))
+        {
+            NetworkService.SendToServer<RemoteEvents.SprintRequest>();
+        }
 
         elapsed += delta;
         if (elapsed >= 0.1)
@@ -79,7 +72,7 @@ public class InputProcessor : Processor
             -cameraForward.X * moveDirection.Y + cameraRight.X * moveDirection.X,
             cameraForward.Z * moveDirection.Y - cameraRight.Z * moveDirection.X);
         cameraRelativeMoveDirection = cameraRelativeMoveDirection.Normalized();
-        NetworkService.SendToServer<RemoteEvents.MoveRequest>(Client.Player.Character.Id, cameraRelativeMoveDirection);
+        NetworkService.SendToServer<RemoteEvents.MoveRequest>(cameraRelativeMoveDirection);
         elapsed = 0;
     }
 }

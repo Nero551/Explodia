@@ -23,6 +23,13 @@ public class AnimationProcessor : Processor
         stateProcessor = Processor.Get<Processors.StateProcessor>();
     }
 
+    public override void StartEntities(Entity entity)
+    {
+        base.StartEntities(entity);
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        animationPlayer.AnimationFinished += animName => OnAnimFinished(entity, animName);
+    }
+
     public override void Process(double delta)
     {
         base.Process(delta);
@@ -37,10 +44,51 @@ public class AnimationProcessor : Processor
     public void PlayAnim(Entity entity, string animName, int priority)
     {
         var animationBlock = entity.GetBlock<Blocks.AnimationBlock>();
-        if (priority <= animationBlock.CurrentAnimationPriority)
+        if (priority <= animationBlock.CurrentPriority)
         {
             animationBlock.CurrentAnimation = animName;
+
+            var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            if (animationPlayer == null)
+                return;
+
+            if (!animationPlayer.HasAnimation(animationBlock.CurrentAnimation))
+                return;
+
+            animationBlock.CurrentLength = animationPlayer.GetAnimation(animationBlock.CurrentAnimation).Length;
         }
+    }
+
+    public void LoadAnimLib(Entity entity, string filepath, string animLibName)
+    {
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        var animLib = GD.Load<AnimationLibrary>("res://" + filepath + ".tres");
+
+        if (GetAnimLibrary(entity, animLibName) == null)
+        {
+            animationPlayer.AddAnimationLibrary(animLibName, animLib);
+        }
+    }
+
+    public AnimationLibrary GetAnimLibrary(Entity entity, string libraryName)
+    {
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        if (animationPlayer.HasAnimationLibrary(libraryName))
+        {
+            return animationPlayer.GetAnimationLibrary(libraryName);
+        }
+        return null;
+    }
+
+    public Animation GetAnim(Entity entity, string animName)
+    {
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        if (animationPlayer.HasAnimation(animName))
+        {
+            return animationPlayer.GetAnimation(animName);
+        }
+        GD.PushWarning("Animation: " + animName + " Doesn't Exist.");
+        return null;
     }
 
     void MainAnimations(Entity entity)
@@ -63,6 +111,13 @@ public class AnimationProcessor : Processor
         {
             PlayAnim(entity, animationBlock.Idle, 3);
         }
+    }
+
+    void OnAnimFinished(Entity entity, StringName animName)
+    {
+        var animationBlock = entity.GetBlock<Blocks.AnimationBlock>();
+        animationBlock.CurrentAnimation = "";
+        animationBlock.CurrentPriority = 3;
     }
 }
 

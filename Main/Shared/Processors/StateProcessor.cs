@@ -13,7 +13,7 @@ public class StateProcessor : Processor
 
     public override bool HasRequiredBlocks(Entity entity)
     {
-        return entity.HasBlock<Blocks.StateBlock, Blocks.MovementBlock, Blocks.AnimationBlock>();
+        return entity.HasBlock<Blocks.StateBlock, Blocks.MovementBlock>();
     }
 
     public override void Start()
@@ -71,7 +71,7 @@ public class StateProcessor : Processor
         var stateBlock = entity.GetBlock<Blocks.StateBlock>();
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
 
-        float resultingSpeed = 5;
+        float resultingSpeed = 1;
         float resultingJumpPower = 5f;
         foreach (string key in stateBlock.ActiveStates.Keys)
         {

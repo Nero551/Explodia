@@ -8,6 +8,13 @@ namespace Processors;
 
 public class MovementProcessor : Processor
 {
+    StateProcessor stateProcessor;
+
+    public override bool CheckProcessorDependancies()
+    {
+        return Processor.Has<StateProcessor>();
+    }
+
     public override bool HasRequiredBlocks(Entity entity)
     {
         return entity.HasBlock<Blocks.MovementBlock, Blocks.TransformBlock>();
@@ -16,7 +23,9 @@ public class MovementProcessor : Processor
     public override void Start()
     {
         base.Start();
+        stateProcessor = Processor.Get<StateProcessor>();
         EventService.Subscribe<RemoteEvents.MoveRequest>(OnMoveRequest);
+        EventService.Subscribe<RemoteEvents.SprintRequest>(OnSprintRequest);
     }
 
     public override void PhysicsProcessEntities(Entity entity, double delta)
@@ -90,7 +99,19 @@ public class MovementProcessor : Processor
 
     void OnMoveRequest(RemoteEvents.MoveRequest evnt)
     {
-        var movementBlock = Entity.Get(evnt.EntityId).GetBlock<Blocks.MovementBlock>();
+        var movementBlock = Entity.Get(evnt.Player.Character.Id).GetBlock<Blocks.MovementBlock>();
         movementBlock.MoveDirection = evnt.MoveDirection;
+    }
+
+    void OnSprintRequest(RemoteEvents.SprintRequest evnt)
+    {
+        if (stateProcessor.HasState(evnt.Player.Character, "Sprinting"))
+        {
+            stateProcessor.RemoveState(evnt.Player.Character, "Sprinting");
+        }
+        else
+        {
+            stateProcessor.AddState(evnt.Player.Character, "Sprinting");
+        }
     }
 }

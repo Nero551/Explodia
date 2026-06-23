@@ -68,5 +68,4 @@ public partial class CAnimations : Component
         CurrentAnim = "";
         CurrentAnimPriority = 3;
     }
-
 }

@@ -6,7 +6,7 @@ public static class Client
 {
     public static ENetConnection Connection;
     public static Entities.Player Player;
-    public static int PeerId; //* this is the signature for the network connection ITSELF
+    public static int PeerId;
 
     public static void Start()
     {
@@ -83,7 +83,6 @@ public static class Client
         Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
         PeerId = evnt.PeerId;
         Player = player;
-
 
         EventService.Fire(new Events.Network.ConnectedToServer());
     }

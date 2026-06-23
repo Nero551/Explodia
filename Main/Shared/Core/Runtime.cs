@@ -21,6 +21,7 @@ public abstract class Runtime
     {
         Processor.Add<ReplicationProcessor>();
         Processor.Add<NodeSyncProcessor>();
+        Processor.Add<StateProcessor>();
     }
 
     protected virtual void StartServices()
@@ -51,7 +52,7 @@ public abstract class Runtime
     public virtual void Process(double delta)
     {
         ProcessServices(delta);
-        
+
         foreach (Processor processor in Processors)
         {
             processor.Process(delta);

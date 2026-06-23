@@ -12,6 +12,7 @@ public class AnimationBlock : Block
     public string Run = "Default/Run";
     public string Walk = "Default/Walk";
 
-    public int CurrentAnimationPriority = 3;
+    public int CurrentPriority = 3;
+    public double CurrentLength;
 }
 

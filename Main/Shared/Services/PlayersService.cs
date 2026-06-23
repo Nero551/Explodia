@@ -11,6 +11,9 @@ public static class PlayersService
         Entities.Player player = Entity.Create<Entities.Player>();
         player.ConnectedNode?.Name = userId.ToString();
         player.UserId = userId;
+        
+        player.Character = Entity.Create<Entities.Character>();
+        player.Character.GetNode<CharacterBody3D>().Name = player.UserId.ToString();
         Players.Add(userId, player);
 
         return player;

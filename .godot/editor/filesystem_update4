@@ -24,3 +24,6 @@ res://Main/Shared/Enums/ReplicationMode.cs
 res://Main/Server/Processors/StateProcessor.cs
 res://Main/Server/Processors/AnimationsProcessor.cs
 res://Main/Server/Processors/AnimationProcessor.cs
+res://Main/Shared/Processors/AnimationProcessor.cs
+res://Main/Shared/Events/RemoteEvents/Reliable/SprintRequest.cs
+res://Main/Shared/Processors/StateProcessor.cs
