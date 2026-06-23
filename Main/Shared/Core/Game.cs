@@ -19,10 +19,15 @@ public partial class Game : Node
     public override void _EnterTree()
     {
         Runtime = NetworkService.IsServer() ? new ServerRuntime() : new ClientRuntime();
+    }
+
+    public override async void _Ready()
+    {
+        base._Ready();
         Runtime.Start();
     }
 
-    public override void _Process(double delta)
+    public override  void _Process(double delta)
     {
         base._Process(delta);
         Runtime.Process(delta);

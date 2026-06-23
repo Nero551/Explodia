@@ -3,7 +3,7 @@ using Godot;
 
 namespace Processors;
 
-public class AnimationsProcessor : Processor
+public class AnimationProcessor : Processor
 {
     Processors.StateProcessor stateProcessor;
 
@@ -50,7 +50,7 @@ public class AnimationsProcessor : Processor
 
         if (stateBlock.MainState == MainState.Moving)
         {
-            if (stateProcessor.CheckState(entity, "Sprinting"))
+            if (stateProcessor.HasState(entity, "Sprinting"))
             {
                 PlayAnim(entity, animationBlock.Run, 3);
             }

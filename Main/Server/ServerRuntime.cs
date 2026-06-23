@@ -9,7 +9,7 @@ sealed class ServerRuntime : Runtime
         base.AddProcessors();
         Processor.Add<Processors.MovementProcessor>();
         Processor.Add<Processors.StateProcessor>();
-        Processor.Add<Processors.AnimationsProcessor>();
+        Processor.Add<Processors.AnimationProcessor>();
 
     }
 

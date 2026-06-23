@@ -44,17 +44,26 @@ public class MovementProcessor : Processor
         }
 
         BodyRotation(entity, delta);
+        Gravity(entity, delta);
 
         entity.GetNode<CharacterBody3D>().Velocity = movementBlock.Velocity;
         entity.GetNode<CharacterBody3D>().MoveAndSlide();
+
+        movementBlock.Velocity = entity.GetNode<CharacterBody3D>().Velocity;
         transformBlock.Position = entity.GetNode<CharacterBody3D>().Position;
-        Gravity(entity, delta);
     }
 
     void Gravity(Entity entity, double delta)
     {
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
-        movementBlock.Velocity += entity.GetNode<CharacterBody3D>().GetGravity() * (float)delta * 1.5f;
+        if (!entity.GetNode<CharacterBody3D>().IsOnFloor())
+        {
+            movementBlock.Velocity.Y += entity.GetNode<CharacterBody3D>().GetGravity().Y * (float)delta * 1.5f;
+        }
+        else if (movementBlock.Velocity.Y < 0)
+        {
+            movementBlock.Velocity.Y = 0;
+        }
     }
 
     void VelocityDecay(Entity entity)

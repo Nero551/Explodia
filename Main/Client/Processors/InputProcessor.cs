@@ -10,7 +10,6 @@ public class InputProcessor : Processor
     public override void Start()
     {
         base.Start();
-        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     double elapsed = 0;

@@ -10,14 +10,7 @@ public static class Client
 
     public static void Start()
     {
-        EventService.Subscribe<RemoteEvents.CreatePlayer>((evnt) =>
-        {
-            Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
-            if (Player.UserId == evnt.UserId)
-            {
-                Player = player;
-            }
-        });
+        EventService.Subscribe<RemoteEvents.CreatePlayer>((evnt) => PlayersService.CreatePlayer(evnt.UserId));
         EventService.Subscribe<RemoteEvents.RemovePlayer>((evnt) => PlayersService.RemovePlayer(evnt.UserId));
 
         EventService.Subscribe<RemoteEvents.SetupClient>(OnSetupClient);
@@ -79,17 +72,19 @@ public static class Client
 
     static void OnSetupClient(RemoteEvents.SetupClient evnt)
     {
-        Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
-        PeerId = evnt.PeerId;
-        Player = player;
-        
         foreach (int playerId in evnt.PlayerIds)
         {
-            if (playerId != Player.UserId)
+            if (playerId != evnt.UserId)
             {
                 PlayersService.CreatePlayer(playerId);
             }
         }
+
+        Entities.Player player = PlayersService.CreatePlayer(evnt.UserId);
+        PeerId = evnt.PeerId;
+        Player = player;
+
+
         EventService.Fire(new Events.Network.ConnectedToServer());
     }
 }

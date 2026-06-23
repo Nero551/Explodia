@@ -7,26 +7,17 @@ namespace Processors;
 
 public class NodeSyncProcessor : Processor
 {
-    public override bool HasRequiredBlocks(Entity entity)
-    {
-        return base.HasRequiredBlocks(entity);
-    }
-
-    public override void Start()
-    {
-        base.Start();
-    }
-
-    public override void Process(double delta)
-    {
-        base.Process(delta);
-    }
-
     public override void ProcessEntities(Entity entity, double delta)
     {
         base.ProcessEntities(entity, delta);
+        if (entity.ConnectedNode == null)
+            return;
 
-        //* Animation Sync
+        AnimationSync(entity);
+    }
+
+    void AnimationSync(Entity entity)
+    {
         if (entity.HasBlock<Blocks.AnimationBlock>())
         {
             var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
@@ -49,14 +40,18 @@ public class NodeSyncProcessor : Processor
             return;
 
 
-        //* Transform Sync
+        TransformSync(entity);
+    }
+
+    void TransformSync(Entity entity)
+    {
         if (entity.HasBlock<Blocks.TransformBlock>())
         {
             var transformBlock = entity.GetBlock<Blocks.TransformBlock>();
             var node = entity.GetNode<CharacterBody3D>();
             var target = transformBlock.Position;
             node.Position = node.Position.Lerp(target, 0.3f);
-            node.Basis = node.Basis.Slerp(transformBlock.Basis, 0.2f);
+            node.Basis = node.Basis.Slerp(transformBlock.Basis, 0.3f);
         }
     }
 }

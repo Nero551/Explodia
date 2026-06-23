@@ -53,7 +53,7 @@ public class StateProcessor : Processor
 
     }
 
-    public bool CheckState(Entity entity, params string[] stateNames)
+    public bool HasState(Entity entity, params string[] stateNames)
     {
         var stateBlock = entity.GetBlock<Blocks.StateBlock>();
         foreach (string name in stateNames)

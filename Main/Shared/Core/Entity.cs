@@ -55,6 +55,7 @@ public class Entity
     {
         EntitiesLookup.Remove(Id);
         Game.Runtime.Entities.Remove(this);
+        ConnectedNode?.QueueFree();
     }
 
     public Node ConnectTo<T>(T node) where T : Node
