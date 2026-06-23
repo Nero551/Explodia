@@ -30,7 +30,29 @@ public abstract class Processor
         return (T)ProcessorLookup[typeof(T)] ?? throw new Exception("Processor Doesn't Exist");
     }
 
+    public static bool Has<T>() where T : Processor
+    {
+        if (ProcessorLookup.ContainsKey(typeof(T)))
+        {
+            return true;
+        }
+        return false;
+    }
+    public static bool Has<T1, T2>() where T1 : Processor where T2 : Processor
+    {
+        return Has<T1>() && Has<T2>();
+    }
+    public static bool Has<T1, T2, T3>() where T1 : Processor where T2 : Processor where T3 : Processor
+    {
+        return Has<T1>() && Has<T2>() && Has<T3>();
+    }
+
     public virtual bool HasRequiredBlocks(Entity entity)
+    {
+        return true;
+    }
+
+    public virtual bool CheckProcessorDependancies()
     {
         return true;
     }

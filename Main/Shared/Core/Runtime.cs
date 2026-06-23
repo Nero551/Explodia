@@ -40,6 +40,10 @@ public abstract class Runtime
 
         foreach (Processor processor in Processors)
         {
+            if (!processor.CheckProcessorDependancies())
+            {
+                throw new Exception($"Runtime Doesn't Have the Dependancies for Processor: {processor.GetType().Name} ");
+            }
             processor.Start();
         }
     }
@@ -47,6 +51,7 @@ public abstract class Runtime
     public virtual void Process(double delta)
     {
         ProcessServices(delta);
+        
         foreach (Processor processor in Processors)
         {
             processor.Process(delta);

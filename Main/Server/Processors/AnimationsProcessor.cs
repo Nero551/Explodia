@@ -7,6 +7,11 @@ public class AnimationsProcessor : Processor
 {
     Processors.StateProcessor stateProcessor;
 
+    public override bool CheckProcessorDependancies()
+    {
+        return Processor.Has<Processors.StateProcessor>();
+    }
+
     public override bool HasRequiredBlocks(Entity entity)
     {
         return entity.HasBlock<Blocks.AnimationBlock, Blocks.StateBlock>();

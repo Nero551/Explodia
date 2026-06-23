@@ -10,7 +10,6 @@ namespace Processors;
 public class StateProcessor : Processor
 {
     Godot.Collections.Dictionary stateData;
-    Processors.AnimationsProcessor animationProcessor;
 
     public override bool HasRequiredBlocks(Entity entity)
     {
@@ -21,7 +20,6 @@ public class StateProcessor : Processor
     {
         base.Start();
         stateData = PULib.JSONHelper.JSONToCSharp("Main/Shared/Data/StateData");
-        animationProcessor = Processor.Get<Processors.AnimationsProcessor>();
     }
 
     public override void ProcessEntities(Entity entity, double delta)
