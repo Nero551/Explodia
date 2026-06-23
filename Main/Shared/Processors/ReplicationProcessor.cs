@@ -78,7 +78,7 @@ public class ReplicationProcessor : Processor
     {
         foreach (ReplicationBox replicationBox in evnt.ReplicationQueue)
         {
-            var entity = Game.Runtime.Entities[replicationBox.EntityId];
+            var entity = Entity.Get(replicationBox.EntityId);
             var block = entity.GetBlock(replicationBox.BlockId);
             var replicatedField = block.ReplicatedFields[replicationBox.FieldId];
             if (replicationBox.IsEnum)

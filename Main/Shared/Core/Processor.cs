@@ -15,18 +15,19 @@ namespace Processors { }
 /// </summary>
 public abstract class Processor
 {
-    private readonly static Dictionary<Type,Processor> ProcessorLookup = [];
+    private readonly static Dictionary<Type, Processor> ProcessorLookup = [];
+
     public static Processor Add<T>() where T : Processor, new()
     {
         T processor = new();
-        Game.Runtime.Processors.Add(processor);
         ProcessorLookup.Add(typeof(T), processor);
+        Game.Runtime.Processors.Add(processor);
         return processor;
     }
 
     public static T Get<T>() where T : Processor, new()
     {
-        return (T)ProcessorLookup[typeof(T)];
+        return (T)ProcessorLookup[typeof(T)] ?? throw new Exception("Processor Doesn't Exist");
     }
 
     public virtual bool HasRequiredBlocks(Entity entity)
@@ -36,11 +37,11 @@ public abstract class Processor
 
     public virtual void Start()
     {
-        for (int i = 0; i < Game.Runtime.Entities.Count; i++)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            if (HasRequiredBlocks(Game.Runtime.Entities[i]))
+            if (HasRequiredBlocks(entity))
             {
-                StartEntities(Game.Runtime.Entities[i]);
+                StartEntities(entity);
             }
         }
     }
@@ -53,33 +54,33 @@ public abstract class Processor
 
     public virtual void Process(double delta)
     {
-        for (int i = 0; i < Game.Runtime.Entities.Count; i++)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            if (HasRequiredBlocks(Game.Runtime.Entities[i]))
+            if (HasRequiredBlocks(entity))
             {
-                ProcessEntities(Game.Runtime.Entities[i], delta);
+                ProcessEntities(entity, delta);
             }
         }
     }
 
     public virtual void PhysicsProcess(double delta)
     {
-        for (int i = 0; i < Game.Runtime.Entities.Count; i++)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            if (HasRequiredBlocks(Game.Runtime.Entities[i]))
+            if (HasRequiredBlocks(entity))
             {
-                PhysicsProcessEntities(Game.Runtime.Entities[i], delta);
+                PhysicsProcessEntities(entity, delta);
             }
         }
     }
 
     public virtual void InputProcess(InputEvent inputEvent)
     {
-        for (int i = 0; i < Game.Runtime.Entities.Count; i++)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            if (HasRequiredBlocks(Game.Runtime.Entities[i]))
+            if (HasRequiredBlocks(entity))
             {
-                InputProcessEntities(Game.Runtime.Entities[i], inputEvent);
+                InputProcessEntities(entity, inputEvent);
             }
         }
     }

@@ -8,12 +8,17 @@ sealed class ServerRuntime : Runtime
     {
         base.AddProcessors();
         Processor.Add<Processors.MovementProcessor>();
+        Processor.Add<Processors.StateProcessor>();
         Processor.Add<Processors.AnimationsProcessor>();
+
     }
 
     public override void Start()
     {
         Server.Start();
+
+        //TODO- i need  clear explicit dependancy and communication between processors 
+        //* 1- it should be obvious 2- this processor A wont run unless processor B exists.  
 
         base.Start();
     }

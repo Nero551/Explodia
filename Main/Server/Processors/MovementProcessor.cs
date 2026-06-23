@@ -81,7 +81,7 @@ public class MovementProcessor : Processor
 
     void OnMoveRequest(RemoteEvents.MoveRequest evnt)
     {
-        var movementBlock = Game.Runtime.Entities[evnt.EntityId].GetBlock<Blocks.MovementBlock>();
+        var movementBlock = Entity.Get(evnt.EntityId).GetBlock<Blocks.MovementBlock>();
         movementBlock.MoveDirection = evnt.MoveDirection;
     }
 }

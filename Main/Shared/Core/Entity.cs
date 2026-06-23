@@ -18,6 +18,8 @@ namespace Entities { }
 /// 
 public class Entity
 {
+    private static readonly Dictionary<int, Entity> EntitiesLookup = [];
+
     public readonly Dictionary<int, Blocks.Block> Blocks = [];
     public Node ConnectedNode;
     public int Id;
@@ -34,18 +36,25 @@ public class Entity
         return entity;
     }
 
+    public static Entity Get(int entityId)
+    {
+        return EntitiesLookup[entityId];
+    }
+
     protected Entity()
     {
         Initialize();
         Id = Game.Runtime.NextEntityId++;
-        Game.Runtime.Entities[Id] = this;
+        EntitiesLookup[Id] = this;
+        Game.Runtime.Entities.Add(this);
     }
 
     protected virtual void Initialize() { }
 
     public void Destroy()
     {
-        Game.Runtime.Entities.Remove(Id);
+        EntitiesLookup.Remove(Id);
+        Game.Runtime.Entities.Remove(this);
     }
 
     public Node ConnectTo<T>(T node) where T : Node
@@ -144,5 +153,14 @@ public class Entity
         where T3 : Blocks.Block
     {
         return HasBlock<T1>() && HasBlock<T2>() && HasBlock<T3>();
+    }
+
+    public bool HasBlock<T1, T2, T3, T4>()
+    where T1 : Blocks.Block
+    where T2 : Blocks.Block
+    where T3 : Blocks.Block
+    where T4 : Blocks.Block
+    {
+        return HasBlock<T1>() && HasBlock<T2>() && HasBlock<T3>() && HasBlock<T4>();
     }
 }

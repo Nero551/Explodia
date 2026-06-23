@@ -38,7 +38,7 @@ public class NodeSyncProcessor : Processor
             if (!animationPlayer.HasAnimation(animationBlock.CurrentAnimation))
                 return;
 
-            animationPlayer.Play(animationBlock.CurrentAnimation);
+            animationPlayer.Play(animationBlock.CurrentAnimation, 0.5f);
         }
     }
 

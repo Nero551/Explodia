@@ -13,10 +13,9 @@ using Processors;
 /// 
 public abstract class Runtime
 {
-    public int NextEntityId = 0;
     public HashSet<Processor> Processors = [];
-
-    public Dictionary<int, Entity> Entities = [];
+    public HashSet<Entity> Entities = [];
+    public int NextEntityId = 0;
 
     protected virtual void AddProcessors()
     {

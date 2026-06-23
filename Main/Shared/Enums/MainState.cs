@@ -4,4 +4,5 @@ public enum MainState
     Moving,
     Falling,
     Idle,
+    Dead,
 }
