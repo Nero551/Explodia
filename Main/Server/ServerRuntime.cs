@@ -8,6 +8,7 @@ sealed class ServerRuntime : Runtime
     {
         base.AddProcessors();
         Processor.Add<Processors.MovementProcessor>();
+        Processor.Add<Processors.AnimationsProcessor>();
     }
 
     public override void Start()

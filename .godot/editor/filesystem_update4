@@ -22,3 +22,4 @@ res://Main/Shared/Blocks/AnimationBlock.cs
 res://Main/Shared/Blocks/StateBlock.cs
 res://Main/Shared/Enums/ReplicationMode.cs
 res://Main/Server/Processors/StateProcessor.cs
+res://Main/Server/Processors/AnimationsProcessor.cs

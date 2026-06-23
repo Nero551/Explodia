@@ -15,11 +15,18 @@ namespace Processors { }
 /// </summary>
 public abstract class Processor
 {
+    private readonly static Dictionary<Type,Processor> ProcessorLookup = [];
     public static Processor Add<T>() where T : Processor, new()
     {
         T processor = new();
         Game.Runtime.Processors.Add(processor);
+        ProcessorLookup.Add(typeof(T), processor);
         return processor;
+    }
+
+    public static T Get<T>() where T : Processor, new()
+    {
+        return (T)ProcessorLookup[typeof(T)];
     }
 
     public virtual bool HasRequiredBlocks(Entity entity)

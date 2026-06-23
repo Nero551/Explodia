@@ -14,7 +14,7 @@ using Processors;
 public abstract class Runtime
 {
     public int NextEntityId = 0;
-    public List<Processor> Processors = [];
+    public HashSet<Processor> Processors = [];
 
     public Dictionary<int, Entity> Entities = [];
 
@@ -39,34 +39,34 @@ public abstract class Runtime
         StartServices();
         AddProcessors();
 
-        for (int i = 0; i < Processors.Count; i++)
+        foreach (Processor processor in Processors)
         {
-            Processors[i].Start();
+            processor.Start();
         }
     }
 
     public virtual void Process(double delta)
     {
         ProcessServices(delta);
-        for (int i = 0; i < Processors.Count; i++)
+        foreach (Processor processor in Processors)
         {
-            Processors[i].Process(delta);
+            processor.Process(delta);
         }
     }
 
     public virtual void PhysicsProcess(double delta)
     {
-        for (int i = 0; i < Processors.Count; i++)
+        foreach (Processor processor in Processors)
         {
-            Processors[i].PhysicsProcess(delta);
+            processor.PhysicsProcess(delta);
         }
     }
 
     public virtual void InputProcess(InputEvent inputEvent)
     {
-        for (int i = 0; i < Processors.Count; i++)
+        foreach (Processor processor in Processors)
         {
-            Processors[i].InputProcess(inputEvent);
+            processor.InputProcess(inputEvent);
         }
     }
 }

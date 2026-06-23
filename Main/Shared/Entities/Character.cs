@@ -13,6 +13,7 @@ public class Character : Entity
         AddBlock<MovementBlock>();
         AddBlock<TransformBlock>();
         AddBlock<StateBlock>();
+        AddBlock<AnimationBlock>();
         Game.World.Workspace.GetNode<Node>("Characters").AddChild(ConnectTo(SceneService.CreateScene<CharacterBody3D>("Character")));
 
     }

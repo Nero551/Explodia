@@ -54,8 +54,6 @@ public class ReplicationProcessor : Processor
         foreach (int blockId in entity.Blocks.Keys)
         {
             var block = entity.GetBlock(blockId);
-            if (block == null)
-                continue;
 
             var replicatedFields = block.ReplicatedFields;
             var lastReplicatedFields = block.LastReplicatedFields;
@@ -63,7 +61,7 @@ public class ReplicationProcessor : Processor
             foreach (var replicatedFieldId in replicatedFields.Keys)
             {
                 var replicatedField = replicatedFields[replicatedFieldId];
-                var value = replicatedField.Field.GetValue(block);
+                var value = replicatedField.Field.GetValue(block) ?? throw new Exception($"Value: {replicatedField.Field.Name} is null.");
 
                 if (!lastReplicatedFields.TryGetValue(replicatedFieldId, out var old)
                     || !Equals(value, old))

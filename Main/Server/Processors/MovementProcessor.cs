@@ -37,9 +37,9 @@ public class MovementProcessor : Processor
             {
                 movementBlock.Velocity.X = direction.X * movementBlock.Speed;
                 movementBlock.Velocity.Z = direction.Z * movementBlock.Speed;
-
-
-                //TODO- play animations here.
+                //TODO- Animations system. perhaps a processor? play animations here.
+                //*Needs: 1- play/stop animations  2- track current animation 3- data about the current animation
+                //*       4- Animation priority   5- add animations from library
             }
         }
 
@@ -66,7 +66,6 @@ public class MovementProcessor : Processor
 
     void BodyRotation(Entity entity, double delta)
     {
-        //TODO- make this work.
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
         var transformBlock = entity.GetBlock<Blocks.TransformBlock>();
         Vector3 targetDir = movementBlock.Velocity;
@@ -75,7 +74,6 @@ public class MovementProcessor : Processor
 
         if (targetDir.LengthSquared() > 0.001f)
         {
-            GD.Print(transformBlock.Basis.Determinant());
             Basis target = Basis.LookingAt(targetDir, Vector3.Up).Orthonormalized();
             transformBlock.Basis = target;
         }
