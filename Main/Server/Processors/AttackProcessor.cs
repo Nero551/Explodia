@@ -96,7 +96,6 @@ public class AttackProcessor : Processor
 
     public void OnHitMarker(AnimationMarkers.HitMarker evnt)
     {
-        //TODO- make hitbox entity and a way to get the entity attacker to here
         // var itemData = combatable.ActiveHand.ItemData;
         // string itemName = (string)itemData["Name"];
         string hitboxName = "Fist" + "Basic Attack Hitbox";
