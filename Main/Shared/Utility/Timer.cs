@@ -7,4 +7,5 @@ public class Timer
     public float Remaining;
     public bool Repeat;
     public Entity Entity;
+    public Delegate Action;
 }

@@ -3,34 +3,29 @@ using System.Collections.Generic;
 
 public static class TimerService
 {
-    private static readonly Dictionary<Timer, Delegate> Timers = [];
+    private static readonly HashSet<Timer> Timers = [];
 
     public static Timer CreateTimer(float durationInSeconds, bool repeat, Action callback)
     {
-        Timer timer = new() { Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat };
-        Timers.Add(timer, callback);
+        Timer timer = new() { Action = callback, Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat };
+        Timers.Add(timer);
 
         return timer;
     }
 
     public static Timer CreateTimer<T>(T entity, float durationInSeconds, bool repeat, Action<T> callback) where T : Entity
     {
-        Timer timer = new() { Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat, Entity = entity };
-        Timers.Add(timer, callback);
+        Timer timer = new() { Action = callback, Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat, Entity = entity };
+        Timers.Add(timer);
 
         return timer;
     }
 
-    //TODO- a way to pass in the entity as a parameter to make per entity timers
-    //* the most obvious way is a timer block inside entities, but i dont like it.
-    //* am thinking a way to pass the entity as a parameter that runs on StartEntities() smth like:
-    //* StartEntities(Entity entity){ TimerService.CreateTimer(10, true, OnTimer(Entity entity)); } 
     public static void Process(double delta)
     {
-        foreach (var pair in Timers)
+        foreach (Timer timer in Timers)
         {
-            Timer timer = pair.Key;
-            Delegate callback = pair.Value;
+            Delegate callback = timer.Action;
             timer.Remaining -= (float)delta;
 
             if (timer.Remaining <= 0)
@@ -59,33 +54,33 @@ public static class TimerService
 
     public static void Connect(Timer timer, Action callback)
     {
-        if (Timers.ContainsKey(timer))
+        if (Timers.Contains(timer))
         {
             if (Timers.TryGetValue(timer, out var existing))
             {
-                Timers[timer] = Delegate.Combine(existing, callback);
+                timer.Action = Delegate.Combine(existing.Action, callback);
             }
             else
             {
-                Timers[timer] = callback;
+                timer.Action = callback;
             }
         }
     }
 
     public static void Disconnect(Timer timer, Action callback)
     {
-        if (Timers.ContainsKey(timer))
+        if (Timers.Contains(timer))
         {
             if (Timers.TryGetValue(timer, out var existing))
             {
-                Timers[timer] = Delegate.Remove(existing, callback);
+                timer.Action = Delegate.Remove(existing.Action, callback);
             }
         }
     }
 
     public static void Destroy(Timer timer)
     {
-        if (Timers.ContainsKey(timer))
+        if (Timers.Contains(timer))
         {
             Timers.Remove(timer);
         }

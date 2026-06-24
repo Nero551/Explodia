@@ -28,6 +28,7 @@ public class HealthProcessor : Processor
 
     void HealthRegeneration(Entity entity)
     {
+		GD.Print("nice");
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
         healthBlock.Health = healthBlock.Health > healthBlock.MaxHealth ? healthBlock.MaxHealth : healthBlock.Health;
 
