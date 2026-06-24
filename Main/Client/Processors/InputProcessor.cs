@@ -10,49 +10,62 @@ public class InputProcessor : Processor
     public override void Start()
     {
         base.Start();
+        TimerService.CreateTimer(0.1f, true, MoveInput);
+        TimerService.CreateTimer(0.05f, true, AttackInput);
     }
 
-    double elapsed = 0;
     public override void Process(double delta)
     {
         base.Process(delta);
         if (Client.Player == null || Client.Player.Character == null)
             return;
 
+        MouseCaptureInput();
+        SprintInput();
+        // if (Input.IsActionJustPressed("Jump"))
+        // {
+        //     character.cMovement.Jump();
+        // }
+    }
+
+    void MouseCaptureInput()
+    {
         if (Input.IsActionJustPressed("MouseCapture"))
         {
             Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ?
                 Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
         }
+    }
 
-        // if (Input.IsActionPressed("M1"))
-        // {
-        //     character.cCombat.M1();
-        // }
-        // if (Input.IsActionPressed("M2"))
-        // {
-        //     character.cCombat.M2();
-        // }
-
-        // if (Input.IsActionJustPressed("Jump"))
-        // {
-        //     character.cMovement.Jump();
-        // }
-
+    void SprintInput()
+    {
         if (Input.IsActionJustPressed("Sprint"))
         {
             NetworkService.SendToServer<RemoteEvents.SprintRequest>();
         }
+    }
 
-        elapsed += delta;
-        if (elapsed >= 0.1)
+    void AttackInput()
+    {
+        if (Client.Player == null || Client.Player.Character == null)
+            return;
+
+        if (Input.IsActionPressed("PrimaryAttack"))
         {
-            MoveInput();
+            NetworkService.SendToServer<RemoteEvents.PrimaryAttackRequest>();
+        }
+
+        if (Input.IsActionPressed("SecondaryAttack"))
+        {
+            NetworkService.SendToServer<RemoteEvents.SecondaryAttackRequest>();
         }
     }
 
     void MoveInput()
     {
+        if (Client.Player == null || Client.Player.Character == null)
+            return;
+
         var moveDirection = Input.GetVector("Left", "Right", "Back", "Forward");
         var cameraForward = Game.World.Camera.GlobalTransform.Basis.Z;
         var cameraRight = Game.World.Camera.GlobalTransform.Basis.X;
@@ -68,6 +81,5 @@ public class InputProcessor : Processor
             cameraForward.Z * moveDirection.Y - cameraRight.Z * moveDirection.X);
         cameraRelativeMoveDirection = cameraRelativeMoveDirection.Normalized();
         NetworkService.SendToServer<RemoteEvents.MoveRequest>(cameraRelativeMoveDirection);
-        elapsed = 0;
     }
 }

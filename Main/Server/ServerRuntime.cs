@@ -11,6 +11,8 @@ sealed class ServerRuntime : Runtime
         Processor.Add<MovementProcessor>();
         Processor.Add<AnimationProcessor>();
         Processor.Add<HealthProcessor>();
+        Processor.Add<AttackProcessor>();
+        Processor.Add<StateProcessor>();
     }
 
     public override void Start()

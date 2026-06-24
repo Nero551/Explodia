@@ -31,7 +31,6 @@ public class AnimationProcessor : Processor
         {
             var animationPlayer = evnt.Entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
             animationPlayer.AnimationFinished += animName => OnAnimFinished(evnt.Entity, animName);
-
         }
     }
 
@@ -52,8 +51,10 @@ public class AnimationProcessor : Processor
         if (priority <= animationBlock.CurrentPriority)
         {
             animationBlock.CurrentAnimation = animName;
+            animationBlock.CurrentPriority = priority;
 
             var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+
             if (animationPlayer == null)
                 return;
 

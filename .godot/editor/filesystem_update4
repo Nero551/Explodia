@@ -10,3 +10,8 @@ res://Main/Shared/Core/Game.cs
 res://Main/Shared/Utility/VisualEffect.cs
 res://Main/Shared/Events/EntityCreation.cs
 res://Main/Shared/Events/Died.cs
+res://Main/Server/Processors/AttackProcessor.cs
+res://Main/Shared/Blocks/AttackBlock.cs
+res://Main/Shared/Events/RemoteEvents/Reliable/AttackRequest.cs
+res://Main/Shared/Events/RemoteEvents/Reliable/PrimaryAttackRequest.cs
+res://Main/Shared/Assets/Scenes/Character.tscn

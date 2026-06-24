@@ -21,7 +21,6 @@ public abstract class Runtime
     {
         Processor.Add<ReplicationProcessor>();
         Processor.Add<NodeSyncProcessor>();
-        Processor.Add<StateProcessor>();
     }
 
     protected virtual void StartServices()
