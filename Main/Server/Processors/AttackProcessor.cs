@@ -9,10 +9,11 @@ public class AttackProcessor : Processor
 {
     StateProcessor stateProcessor;
     AnimationProcessor animationProcessor;
+    HitboxProcessor hitboxProcessor;
 
     public override bool CheckProcessorDependancies()
     {
-        return Processor.Has<StateProcessor, AnimationProcessor>();
+        return Processor.Has<StateProcessor, AnimationProcessor, HitboxProcessor>();
     }
 
     public override bool HasRequiredBlocks(Entity entity)
@@ -25,11 +26,12 @@ public class AttackProcessor : Processor
         base.Start();
         stateProcessor = Processor.Get<StateProcessor>();
         animationProcessor = Processor.Get<AnimationProcessor>();
+        hitboxProcessor = Processor.Get<HitboxProcessor>();
 
         EventService.Subscribe<RemoteEvents.PrimaryAttackRequest>(PrimaryAttack);
         EventService.Subscribe<RemoteEvents.SecondaryAttackRequest>(SecondaryAttack);
 
-		EventService.Subscribe<AnimationMarkers.HitMarker>(OnHitMarker);
+        EventService.Subscribe<AnimationMarkers.HitMarker>(OnHitMarker);
     }
 
     public void PrimaryAttack(RemoteEvents.PrimaryAttackRequest evnt)
@@ -43,9 +45,9 @@ public class AttackProcessor : Processor
         BasicAttack(evnt.Player.Character);
     }
 
-	//TODO- add animation markers.
-	//* am thinking. a modified version of animation player than can store markers and fire events on marker.
-	//TODO- hand block and processor for active hand, main hand and off hand
+    //TODO- add animation markers.
+    //* am thinking. a modified version of animation player than can store markers and fire events on marker.
+    //TODO- hand block and processor for active hand, main hand and off hand
 
     public void BasicAttack(Entity entity)
     {
@@ -87,30 +89,25 @@ public class AttackProcessor : Processor
             }
 
             stateProcessor.AddState(entity, "Attacking", swingAnim.Length);
-			
+
             animationProcessor.PlayAnim(entity, $"{itemName}/L{attackBlock.SwingNumber}", 1);
         }
     }
 
     public void OnHitMarker(AnimationMarkers.HitMarker evnt)
     {
-		GD.Print("nice");
+        //TODO- make hitbox entity and a way to get the entity attacker to here
         // var itemData = combatable.ActiveHand.ItemData;
         // string itemName = (string)itemData["Name"];
-        // string hitboxName = itemName + "Basic Attack Hitbox";
-        // if (Game.World.Workspace.GetNode<Node>("Hitboxes").GetNodeOrNull<Hitbox>(hitboxName) == null)
-        // {
-        //     PackedScene scene = GD.Load<PackedScene>("res://Main/Workspace/Hitbox.tscn");
-        //     Hitbox hitbox = scene.Instantiate<Hitbox>();
-
-        //     hitbox.Name = hitboxName;
-
-        //     var hitboxData = (Godot.Collections.Dictionary)itemData["Hitbox"];
-        //     Vector3 hitboxSize = new Vector3((float)hitboxData["X"], (float)hitboxData["Y"], (float)hitboxData["Z"]);
-
-        //     hitbox.Init(ComponentHost.Owner.GetNode<Node3D>("Armature/HitboxLocation").GlobalPosition, hitboxSize, ComponentHost.Owner as Character);
-        //     GDHelper.ScheduleRemoval(hitbox, 0.1f);
-        // }
+        string hitboxName = "Fist" + "Basic Attack Hitbox";
+        Vector3 hitboxSize = new(0.75f, 1, 0.75f);
+        Entities.Hitbox hitbox = Entity.Create<Entities.Hitbox>();
+        CharacterBody3D attackerNode = evnt.Entity.GetNode<CharacterBody3D>();
+        hitboxProcessor.SetHitboxName(hitbox, hitboxName);
+        hitboxProcessor.SetHitboxSize(hitbox, hitboxSize);
+        hitboxProcessor.SetHitboxPosition(hitbox, attackerNode.GetNode<Marker3D>("Armature/HitboxLocation").GlobalPosition);
+        hitboxProcessor.SetHitboxAttacker(hitbox, evnt.Entity);
+		hitboxProcessor.SetHitboxDuration(hitbox, 0.4f);
     }
 }
 

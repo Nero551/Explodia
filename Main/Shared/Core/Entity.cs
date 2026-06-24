@@ -43,10 +43,11 @@ public class Entity
 
     protected Entity()
     {
-        Initialize();
         Id = Game.Runtime.NextEntityId++;
         EntitiesLookup[Id] = this;
         Game.Runtime.Entities.Add(this);
+        Initialize();
+
 
         EventService.Fire(new Events.EntityCreation(this));
     }

@@ -13,6 +13,7 @@ sealed class ServerRuntime : Runtime
         Processor.Add<HealthProcessor>();
         Processor.Add<AttackProcessor>();
         Processor.Add<StateProcessor>();
+        Processor.Add<HitboxProcessor>();
     }
 
     public override void Start()

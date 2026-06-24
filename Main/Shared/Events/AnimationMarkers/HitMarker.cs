@@ -4,6 +4,7 @@ using Godot;
 
 namespace AnimationMarkers;
 
-public class HitMarker() : Event
+public class HitMarker(Entity entity) : Event
 {
+    public Entity Entity => entity;
 }

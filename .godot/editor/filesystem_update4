@@ -12,3 +12,8 @@ res://Main/Shared/Assets/Items/Weapons/Melee/Fist/L2.anim
 res://Main/Shared/Assets/Items/Weapons/Melee/Fist/L3.anim
 res://Main/Shared/Assets/Items/Weapons/Melee/Fist/L4.anim
 res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres
+res://Main/Shared/Blocks/HandBlock.cs
+res://Main/Shared/Entities/Hitbox.cs
+res://Main/Shared/Assets/Scenes/Hitbox.tscn
+res://Main/Shared/Blocks/HitboxBlock.cs
+res://Main/Server/Processors/HitboxProcessor.cs
