@@ -17,7 +17,6 @@ public class Character : Entity
         AddBlock<HealthBlock>();
         AddBlock<AttackBlock>();
         var node = SceneService.CreateScene<CharacterBody3D>("Character");
-        node.SetMeta("entity_id", Id);
         ConnectTo(node);
         Game.World.Workspace.GetNode<Node>("Characters").AddChild(node);
 

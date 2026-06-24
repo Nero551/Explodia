@@ -54,7 +54,7 @@ public class HitboxProcessor : Processor
                 }
                 //TODO- add actual effect (getting hit logic).
                 //Actual Hit Logic Here pls
-                // cDefaultHit.DefaultHit(Attacker, targetHitEntity, Data);
+                DefaultHit(hitbox, attacker, targetCharacter);
             }
         }
     }
@@ -90,7 +90,7 @@ public class HitboxProcessor : Processor
         TimerService.CreateTimer(hitbox, duration, false, (hitbox) => hitbox.Destroy());
     }
 
-    void DefaultHit(Entity hitbox, Entities.Character attacker, Entities.Character targetHit)
+    void DefaultHit(Entity hitbox, Entity attacker, Entities.Character targetHit)
     {
         // if (targetHit.cStates.CheckState("Invulnerable"))
         // {

@@ -11,6 +11,8 @@ public class Player : Entity
     protected override void Initialize()
     {
         base.Initialize();
-        Game.World.Players.AddChild(ConnectTo(SceneService.CreateScene<Node>("Player")));
+        Node node = SceneService.CreateScene<Node>("Player");
+        ConnectTo(node);
+        Game.World.Players.AddChild(node);
     }
 }

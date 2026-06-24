@@ -12,7 +12,7 @@ public class Hitbox : Entity
         base.Initialize();
 		AddBlock<HitboxBlock>();
         Area3D hitbox = SceneService.CreateScene<Area3D>("Hitbox");
-        ConnectedNode = hitbox;
+        ConnectTo(hitbox);
         Game.World.Workspace.GetNodeOrNull<Node>("Hitboxes").AddChild(hitbox);
     }
 }

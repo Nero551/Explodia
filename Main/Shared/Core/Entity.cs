@@ -64,6 +64,7 @@ public class Entity
     public Node ConnectTo<T>(T node) where T : Node
     {
         ConnectedNode = node;
+        node.SetMeta("entity_id", Id);
         return ConnectedNode;
     }
 
