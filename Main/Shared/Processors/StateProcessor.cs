@@ -11,9 +11,14 @@ public class StateProcessor : Processor
 {
     Godot.Collections.Dictionary stateData;
 
+    public override bool CheckProcessorDependancies()
+    {
+        return Processor.Has<HealthProcessor>();
+    }
+
     public override bool HasRequiredBlocks(Entity entity)
     {
-        return entity.HasBlock<Blocks.StateBlock, Blocks.MovementBlock>();
+        return entity.HasBlock<Blocks.StateBlock, Blocks.MovementBlock, Blocks.HealthBlock>();
     }
 
     public override void Start()
@@ -104,10 +109,12 @@ public class StateProcessor : Processor
     {
         var stateBlock = entity.GetBlock<Blocks.StateBlock>();
         var movementBlock = entity.GetBlock<Blocks.MovementBlock>();
+        var healthblock = entity.GetBlock<Blocks.HealthBlock>();
 
-        if (false) //* If Health = 0 then dead.
+        if (healthblock.Health <= 0)
         {
             stateBlock.MainState = MainState.Dead;
+            EventService.Fire(new Events.Died(entity));
             return;
         }
 

@@ -22,32 +22,26 @@ public class HealthProcessor : Processor
         if (HasRequiredBlocks(evnt.Entity))
         {
             var healthBlock = evnt.Entity.GetBlock<Blocks.HealthBlock>();
-            TimerService.CreateTimer<Entity>(evnt.Entity,healthBlock.RegenRate , true, HealthRegeneration);
+            TimerService.CreateTimer<Entity>(evnt.Entity, healthBlock.RegenRate, true, HealthRegeneration);
         }
     }
 
     void HealthRegeneration(Entity entity)
     {
-		GD.Print("nice");
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
-        healthBlock.Health = healthBlock.Health > healthBlock.MaxHealth ? healthBlock.MaxHealth : healthBlock.Health;
-
-        if (healthBlock.Health < healthBlock.MaxHealth)
-        {
-            IncreaseHealth(entity, healthBlock.HealthRegen);
-        }
+        IncreaseHealth(entity, healthBlock.HealthRegen);
     }
 
     public void IncreaseHealth(Entity entity, int change)
     {
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
-        healthBlock.Health += change;
+        healthBlock.Health = Math.Min(healthBlock.MaxHealth, healthBlock.Health + change);
     }
 
     public void DecreaseHealth(Entity entity, int change)
     {
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
-        healthBlock.Health -= change;
+        healthBlock.Health = Math.Max(0, healthBlock.Health - change);
     }
 }
 

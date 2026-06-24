@@ -9,3 +9,4 @@ res://Main/UI/Label.cs
 res://Main/Shared/Core/Game.cs
 res://Main/Shared/Utility/VisualEffect.cs
 res://Main/Shared/Events/EntityCreation.cs
+res://Main/Shared/Events/Died.cs

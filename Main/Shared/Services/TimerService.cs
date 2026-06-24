@@ -15,7 +15,7 @@ public static class TimerService
 
     public static Timer CreateTimer<T>(T entity, float durationInSeconds, bool repeat, Action<T> callback) where T : Entity
     {
-        Timer timer = new() { Action = callback, Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat, Entity = entity };
+        Timer timer = new() { Action = () => callback(entity), Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat, Entity = entity };
         Timers.Add(timer);
 
         return timer;
@@ -25,28 +25,19 @@ public static class TimerService
     {
         foreach (Timer timer in Timers)
         {
-            Delegate callback = timer.Action;
+            Action callback = timer.Action;
             timer.Remaining -= (float)delta;
 
             if (timer.Remaining <= 0)
             {
-                if (timer.Entity != null)
-                {
-                    ((Action<Entity>)callback).Invoke(timer.Entity);
-
-                }
-                else
-                {
-                    ((Action)callback).Invoke();
-                }
-
+                callback.Invoke();
                 if (timer.Repeat)
                 {
                     timer.Remaining = timer.Duration;
                 }
                 else
                 {
-                    Timers.Remove(timer);
+                    Destroy(timer);
                 }
             }
         }
@@ -56,9 +47,10 @@ public static class TimerService
     {
         if (Timers.Contains(timer))
         {
-            if (Timers.TryGetValue(timer, out var existing))
+            if (timer.Action != null)
             {
-                timer.Action = Delegate.Combine(existing.Action, callback);
+                timer.Action += callback;
+
             }
             else
             {
@@ -71,9 +63,9 @@ public static class TimerService
     {
         if (Timers.Contains(timer))
         {
-            if (Timers.TryGetValue(timer, out var existing))
+            if (timer.Action != null)
             {
-                timer.Action = Delegate.Remove(existing.Action, callback);
+                timer.Action -= callback;
             }
         }
     }

@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace Events {}
+namespace Events { }
 public abstract class Event
 {
 }
