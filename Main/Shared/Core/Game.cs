@@ -16,6 +16,10 @@ public partial class Game : Node
 
     //TODO- integrate the game to the new framework and network
 
+    //TODO- fix bug where processor Start method runs startentities before any entities exist
+    //TODO- Start() should run on the start of the program . StartEntities() should run on entity creation
+    //* perhaps an event that fires on entity creation. processors can react to that event
+
     public override void _EnterTree()
     {
         Runtime = NetworkService.IsServer() ? new ServerRuntime() : new ClientRuntime();

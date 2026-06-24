@@ -57,18 +57,7 @@ public abstract class Processor
         return true;
     }
 
-    public virtual void Start()
-    {
-        foreach (Entity entity in Game.Runtime.Entities)
-        {
-            if (HasRequiredBlocks(entity))
-            {
-                StartEntities(entity);
-            }
-        }
-    }
-
-    public virtual void StartEntities(Entity entity) { }
+    public virtual void Start() { } //* no loop over entities here cuz this starts before entities
 
     public virtual void ProcessEntities(Entity entity, double delta) { }
 

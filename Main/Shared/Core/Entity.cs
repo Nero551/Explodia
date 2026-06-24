@@ -47,6 +47,8 @@ public class Entity
         Id = Game.Runtime.NextEntityId++;
         EntitiesLookup[Id] = this;
         Game.Runtime.Entities.Add(this);
+
+        EventService.Fire(new Events.EntityCreation(this));
     }
 
     protected virtual void Initialize() { }

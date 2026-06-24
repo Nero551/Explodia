@@ -21,13 +21,18 @@ public class AnimationProcessor : Processor
     {
         base.Start();
         stateProcessor = Processor.Get<Processors.StateProcessor>();
+        EventService.Subscribe<Events.EntityCreation>(OnEntityCreation);
     }
 
-    public override void StartEntities(Entity entity)
+
+    void OnEntityCreation(Events.EntityCreation evnt)
     {
-        base.StartEntities(entity);
-        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-        animationPlayer.AnimationFinished += animName => OnAnimFinished(entity, animName);
+        if (HasRequiredBlocks(evnt.Entity))
+        {
+            var animationPlayer = evnt.Entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            animationPlayer.AnimationFinished += animName => OnAnimFinished(evnt.Entity, animName);
+
+        }
     }
 
     public override void Process(double delta)

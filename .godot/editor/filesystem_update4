@@ -2,3 +2,10 @@ res://Main/Shared/Assets/Scenes/Game.tscn
 res://Main/Shared/Assets/Shaders/Slime.gdshader
 res://Main/Shared/Blocks/HealthBlock.cs
 res://Main/Shared/Processors/HealthProcessor.cs
+res://Main/Shared/Utility/Attachment3D.cs
+res://Main/Shared/Utility/Camera.cs
+res://Main/Client/World.cs
+res://Main/UI/Label.cs
+res://Main/Shared/Core/Game.cs
+res://Main/Shared/Utility/VisualEffect.cs
+res://Main/Shared/Events/EntityCreation.cs

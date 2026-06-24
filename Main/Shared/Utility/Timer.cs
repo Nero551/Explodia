@@ -6,4 +6,5 @@ public class Timer
     public float Duration;
     public float Remaining;
     public bool Repeat;
+    public Entity Entity;
 }

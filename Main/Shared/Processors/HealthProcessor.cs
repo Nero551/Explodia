@@ -14,26 +14,27 @@ public class HealthProcessor : Processor
     public override void Start()
     {
         base.Start();
+        EventService.Subscribe<Events.EntityCreation>(OnEntityCreation);
     }
 
-    public override void Process(double delta)
+    void OnEntityCreation(Events.EntityCreation evnt)
     {
-        base.Process(delta);
+        if (HasRequiredBlocks(evnt.Entity))
+        {
+            var healthBlock = evnt.Entity.GetBlock<Blocks.HealthBlock>();
+            TimerService.CreateTimer<Entity>(evnt.Entity,healthBlock.RegenRate , true, HealthRegeneration);
+        }
     }
 
-    public override void ProcessEntities(Entity entity, double delta)
+    void HealthRegeneration(Entity entity)
     {
-        base.ProcessEntities(entity, delta);
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
-
         healthBlock.Health = healthBlock.Health > healthBlock.MaxHealth ? healthBlock.MaxHealth : healthBlock.Health;
 
         if (healthBlock.Health < healthBlock.MaxHealth)
         {
             IncreaseHealth(entity, healthBlock.HealthRegen);
         }
-
-		//* a way to have per entity timers.
     }
 
     public void IncreaseHealth(Entity entity, int change)
