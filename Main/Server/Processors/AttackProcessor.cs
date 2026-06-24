@@ -28,6 +28,8 @@ public class AttackProcessor : Processor
 
         EventService.Subscribe<RemoteEvents.PrimaryAttackRequest>(PrimaryAttack);
         EventService.Subscribe<RemoteEvents.SecondaryAttackRequest>(SecondaryAttack);
+
+		EventService.Subscribe<AnimationMarkers.HitMarker>(OnHitMarker);
     }
 
     public void PrimaryAttack(RemoteEvents.PrimaryAttackRequest evnt)
@@ -40,6 +42,10 @@ public class AttackProcessor : Processor
         // ActiveHand = OffHand;
         BasicAttack(evnt.Player.Character);
     }
+
+	//TODO- add animation markers.
+	//* am thinking. a modified version of animation player than can store markers and fire events on marker.
+	//TODO- hand block and processor for active hand, main hand and off hand
 
     public void BasicAttack(Entity entity)
     {
@@ -86,12 +92,13 @@ public class AttackProcessor : Processor
         }
     }
 
-    public void OnHitMarker()
+    public void OnHitMarker(AnimationMarkers.HitMarker evnt)
     {
+		GD.Print("nice");
         // var itemData = combatable.ActiveHand.ItemData;
         // string itemName = (string)itemData["Name"];
         // string hitboxName = itemName + "Basic Attack Hitbox";
-        // if (Game.Hitboxes.GetNodeOrNull<Hitbox>(hitboxName) == null)
+        // if (Game.World.Workspace.GetNode<Node>("Hitboxes").GetNodeOrNull<Hitbox>(hitboxName) == null)
         // {
         //     PackedScene scene = GD.Load<PackedScene>("res://Main/Workspace/Hitbox.tscn");
         //     Hitbox hitbox = scene.Instantiate<Hitbox>();

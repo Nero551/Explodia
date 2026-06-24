@@ -1,3 +1,4 @@
+ModdedAnimationPlayer
 Node
 Label
 Control
@@ -11,4 +12,3 @@ Marker3D
 BoneAttachment3D
 MeshInstance3D
 AudioStreamPlayer
-AudioListener3D

@@ -20,7 +20,7 @@ public class NodeSyncProcessor : Processor
     {
         if (entity.HasBlock<Blocks.AnimationBlock>())
         {
-            var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
             if (animationPlayer == null)
                 return;
 
@@ -31,7 +31,6 @@ public class NodeSyncProcessor : Processor
 
             if (animationPlayer.CurrentAnimation == animationBlock.CurrentAnimation)
                 return;
-            GD.Print(animationBlock.CurrentAnimation);
 
             animationPlayer.Play(animationBlock.CurrentAnimation, 0.4f);
         }

@@ -29,7 +29,7 @@ public class AnimationProcessor : Processor
     {
         if (HasRequiredBlocks(evnt.Entity))
         {
-            var animationPlayer = evnt.Entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            var animationPlayer = evnt.Entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
             animationPlayer.AnimationFinished += animName => OnAnimFinished(evnt.Entity, animName);
         }
     }
@@ -53,7 +53,7 @@ public class AnimationProcessor : Processor
             animationBlock.CurrentAnimation = animName;
             animationBlock.CurrentPriority = priority;
 
-            var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
 
             if (animationPlayer == null)
                 return;
@@ -67,7 +67,7 @@ public class AnimationProcessor : Processor
 
     public void LoadAnimLib(Entity entity, string filepath, string animLibName)
     {
-        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
         var animLib = GD.Load<AnimationLibrary>("res://" + filepath + ".tres");
 
         if (GetAnimLibrary(entity, animLibName) == null)
@@ -78,7 +78,7 @@ public class AnimationProcessor : Processor
 
     public AnimationLibrary GetAnimLibrary(Entity entity, string libraryName)
     {
-        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
         if (animationPlayer.HasAnimationLibrary(libraryName))
         {
             return animationPlayer.GetAnimationLibrary(libraryName);
@@ -88,7 +88,7 @@ public class AnimationProcessor : Processor
 
     public Animation GetAnim(Entity entity, string animName)
     {
-        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        var animationPlayer = entity.ConnectedNode?.GetNodeOrNull<ModdedAnimationPlayer>("ModdedAnimationPlayer");
         if (animationPlayer.HasAnimation(animName))
         {
             return animationPlayer.GetAnimation(animName);
