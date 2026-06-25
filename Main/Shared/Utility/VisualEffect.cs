@@ -20,9 +20,10 @@ public partial class VisualEffect : Node3D
 
     public static VisualEffect Spawn(string filepath, Node parent, Vector3? pos = null, float lifeTime = 5f)
     {
-        PackedScene scene = GD.Load<PackedScene>($"res://Main/{filepath}");
+        PackedScene scene = GD.Load<PackedScene>($"res://Main/{filepath}.tscn");
         if (scene == null)
         {
+            GD.Print("nice");
             return null;
         }
 

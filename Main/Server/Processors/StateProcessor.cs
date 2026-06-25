@@ -24,7 +24,7 @@ public class StateProcessor : Processor
     public override void Start()
     {
         base.Start();
-        stateData = PULib.JSONHelper.JSONToCSharp("Main/Shared/Data/StateData");
+        stateData = PULib.JSONHelper.JSONToCSharp("Main/Shared/Data/JSON/StateData");
     }
 
     public override void ProcessEntities(Entity entity, double delta)

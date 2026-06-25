@@ -1,10 +1,21 @@
 using System;
+using Blocks;
 using Godot;
 
 namespace Processors;
 
 public class HitboxProcessor : Processor
 {
+
+    StateProcessor stateProcessor;
+    HealthProcessor healthProcessor;
+    AnimationProcessor animationProcessor;
+
+    public override bool CheckProcessorDependancies()
+    {
+        return Processor.Has<Processors.StateProcessor>();
+    }
+
     public override bool HasRequiredBlocks(Entity entity)
     {
         return entity.HasBlock<Blocks.HitboxBlock>();
@@ -14,6 +25,9 @@ public class HitboxProcessor : Processor
     {
         base.Start();
         EventService.Subscribe<Events.EntityCreation>(OnEntityCreation);
+        stateProcessor = Processor.Get<StateProcessor>();
+        healthProcessor = Processor.Get<HealthProcessor>();
+        animationProcessor = Processor.Get<AnimationProcessor>();
     }
 
     void OnEntityCreation(Events.EntityCreation evnt)
@@ -92,33 +106,39 @@ public class HitboxProcessor : Processor
 
     void DefaultHit(Entity hitbox, Entity attacker, Entities.Character targetHit)
     {
-        // if (targetHit.cStates.CheckState("Invulnerable"))
-        // {
-        //     return;
-        // }
+        if (stateProcessor.HasState(targetHit, "Invulnerable"))
+        {
+            return;
+        }
 
-        // //States
-        // attacker.cStates.AddState("In Combat", 30);
-        // targetHit.cStates.AddState("In Combat", 30);
-        // targetHit.cStates.AddState("Stunned", 0.4);
-        // //Damage
-        // targetHit.cHealth.CurrentHealth -= (float)itemData["Damage"];
+        //States
+        stateProcessor.AddState(attacker, "In Combat", 30);
+        stateProcessor.AddState(targetHit, "In Combat", 30);
+        stateProcessor.AddState(targetHit, "Stunned", 0.4);
 
-        // //Knockback
-        // Vector3 direction = -Attacker.Basis.Z;
-        // if (Attacker.cCombat.SwingNumber == (int)itemData["Swings"])
-        // {
-        //     targetHit.cForce.Knockback(direction * 30);
-        // }
-        // else
-        // {
-        //     targetHit.cForce.Knockback(direction * 2);
-        //     Attacker.cForce.Pull(-direction * 2);
-        // }
-        // //Animations, VFX & Sound
-        // targetHit.cAnimations.PlayAnim("HitReactions/" + Attacker.cCombat.SwingNumber, 1);
-        // VisualEffect.Spawn("Shared/Assets/VFX/HitImpact/HitImpact.tscn", targetHit.cBody.Root);
-        // AudioService.PlaySpatialSound("Shared/Assets/Audio/SFX/punch.wav", targetHit);
+        //Damage
+        healthProcessor.DecreaseHealth(targetHit, 15); //* itemdata damage
+
+        //Knockback
+        Vector3 direction = -attacker.GetBlock<Blocks.TransformBlock>().Basis.Z;
+        if (attacker.GetBlock<Blocks.AttackBlock>().SwingNumber == 4) //* itemdata swings
+        {
+            targetHit.GetBlock<Blocks.MovementBlock>().Velocity += direction * 15;
+        }
+        else
+        {
+            targetHit.GetBlock<Blocks.MovementBlock>().Velocity += direction * 1.5f;
+            attacker.GetBlock<Blocks.MovementBlock>().Velocity += direction * 6;
+        }
+
+
+        //Animations, VFX & Sound
+        animationProcessor.PlayAnim(
+            targetHit, "HitReactions/" + attacker.GetBlock<Blocks.AttackBlock>().SwingNumber, 1);
+        NetworkService.SendToAllClients<RemoteEvents.ClientVFX>(
+            "Shared/Assets/VFX/HitImpact/HitImpact", targetHit.Id, true, AttachmentPoint.Root);
+
+        NetworkService.SendToAllClients<RemoteEvents.ClientSound>(
+            "Shared/Assets/Audio/SFX/punch.wav", targetHit.Id);
     }
 }
-

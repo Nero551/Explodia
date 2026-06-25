@@ -246,9 +246,9 @@ public abstract class RemoteEvent() : Event
         return new Quaternion(ReadFloat(), ReadFloat(), ReadFloat(), ReadFloat());
     }
 
-    protected int ReadEnum()
+    protected T ReadEnum<T>() where T : Enum
     {
-        return ReadByte();
+        return (T)Enum.ToObject(typeof(T), ReadByte());
     }
 
     protected byte ReadByte()

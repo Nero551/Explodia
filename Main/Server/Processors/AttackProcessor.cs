@@ -45,8 +45,6 @@ public class AttackProcessor : Processor
         BasicAttack(evnt.Player.Character);
     }
 
-    //TODO- add animation markers.
-    //* am thinking. a modified version of animation player than can store markers and fire events on marker.
     //TODO- hand block and processor for active hand, main hand and off hand
 
     public void BasicAttack(Entity entity)
@@ -89,7 +87,6 @@ public class AttackProcessor : Processor
             }
 
             stateProcessor.AddState(entity, "Attacking", swingAnim.Length);
-
             animationProcessor.PlayAnim(entity, $"{itemName}/L{attackBlock.SwingNumber}", 1);
         }
     }
@@ -98,8 +95,8 @@ public class AttackProcessor : Processor
     {
         // var itemData = combatable.ActiveHand.ItemData;
         // string itemName = (string)itemData["Name"];
-        string hitboxName = "Fist" + "Basic Attack Hitbox";
-        Vector3 hitboxSize = new(0.75f, 1, 0.75f);
+        string hitboxName = "Fist" + "Basic Attack Hitbox"; //* itemData name
+        Vector3 hitboxSize = new(0.75f, 1, 0.75f); //* itemData Data[HitboxSize]
         Entities.Hitbox hitbox = Entity.Create<Entities.Hitbox>();
         CharacterBody3D attackerNode = evnt.Entity.GetNode<CharacterBody3D>();
         hitboxProcessor.SetHitboxName(hitbox, hitboxName);

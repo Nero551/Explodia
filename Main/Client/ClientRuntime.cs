@@ -10,6 +10,7 @@ sealed class ClientRuntime : Runtime
         base.AddProcessors();
         Processor.Add<InputProcessor>();
         Processor.Add<CameraProcessor>();
+        Processor.Add<ClientEffectsProcessor>();
     }
 
     public override void Start()

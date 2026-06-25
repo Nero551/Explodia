@@ -17,3 +17,8 @@ res://Main/Shared/Entities/Hitbox.cs
 res://Main/Shared/Assets/Scenes/Hitbox.tscn
 res://Main/Shared/Blocks/HitboxBlock.cs
 res://Main/Server/Processors/HitboxProcessor.cs
+res://Main/Client/ClientEffectsProcessor.cs
+res://Main/Shared/Events/ClientVFX.cs
+res://Main/Shared/Events/ClientSound.cs
+res://Main/Shared/Enums/AttachmentPoint.cs
+res://Main/Shared/Data/Data.cs

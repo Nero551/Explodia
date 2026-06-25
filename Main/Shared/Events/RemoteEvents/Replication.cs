@@ -53,7 +53,7 @@ public class Replication : RemoteEvent
             object value;
             if (isEnum)
             {
-                value = ReadEnum();
+                value = ReadByte();
             }
             else
             {
