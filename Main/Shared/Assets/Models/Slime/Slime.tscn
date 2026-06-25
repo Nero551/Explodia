@@ -1,9 +1,8 @@
 [gd_scene format=4 uid="uid://cyrsxgrusxml0"]
 
-[ext_resource type="Script" uid="uid://dvr5vpxnt2r5i" path="res://Main2/Client/Entities/Enemy.cs" id="1_66hi5"]
 [ext_resource type="Shader" uid="uid://1uy2765hykt8" path="res://Main/Shared/Assets/Shaders/Slime.gdshader" id="2_fbgq7"]
 [ext_resource type="Texture2D" uid="uid://djnpup8jqkpff" path="res://Main/Shared/Assets/Models/Slime/Slime_UV.png" id="3_am4uu"]
-[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main2/Shared/Entities/Attachment3D.cs" id="4_8503g"]
+[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Utility/Attachment3D.cs" id="4_8503g"]
 
 [sub_resource type="Animation" id="Animation_toj6g"]
 resource_name = "OuterAction"
@@ -96,7 +95,6 @@ data = PackedVector3Array(0.016099999, -0.1874, 0.0497, 0.025999999, -0.18609999
 
 [node name="Slime" type="CharacterBody3D" unique_id=1437722623]
 collision_layer = 0
-script = ExtResource("1_66hi5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=516077506]
 root_node = NodePath("../..")

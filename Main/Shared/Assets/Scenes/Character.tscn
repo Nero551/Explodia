@@ -4,7 +4,6 @@
 [ext_resource type="AnimationLibrary" uid="uid://bv6qkdpoft88a" path="res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres" id="1_n1wxu"]
 [ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Utility/Attachment3D.cs" id="3_1jm8k"]
 [ext_resource type="Texture2D" uid="uid://d37l0xu8xlfqa" path="res://Main/Shared/Assets/Models/Character_AnimationDummy1_diff.png" id="4_5ovk3"]
-[ext_resource type="AnimationLibrary" uid="uid://daf4acs5qkjl3" path="res://Main/Shared/Assets/Animations/HitReactions/HitReactions.tres" id="5_tr11a"]
 [ext_resource type="Script" uid="uid://b3nsn3kvpw86h" path="res://Main/Shared/Utility/ModdedAnimationPlayer.cs" id="5_viaga"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t3ed"]
@@ -405,6 +404,5 @@ debug_color = Color(0.35453683, 0.86174, 0.99999994, 1)
 [node name="ModdedAnimationPlayer" type="AnimationPlayer" parent="." unique_id=2030831588]
 libraries/Default = ExtResource("1_8hv88")
 libraries/Fist = ExtResource("1_n1wxu")
-libraries/HitReactions = ExtResource("5_tr11a")
 script = ExtResource("5_viaga")
 metadata/_custom_type_script = "uid://b3nsn3kvpw86h"

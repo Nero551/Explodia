@@ -27,3 +27,4 @@ res://Main/Shared/Assets/Scenes/Game.tscn
 res://Main/Shared/Assets/Scenes/Enemy.tscn
 res://Main/Server/Processors/AIProcessor.cs
 res://Main/Shared/Blocks/AIBlock.cs
+res://Main/Shared/Assets/Models/Slime/Slime.tscn
