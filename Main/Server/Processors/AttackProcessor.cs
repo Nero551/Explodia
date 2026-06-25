@@ -51,7 +51,7 @@ public class AttackProcessor : Processor
     {
         var attackBlock = entity.GetBlock<Blocks.AttackBlock>();
 
-        if (!stateProcessor.HasState(entity, "Attacking"))
+        if (!stateProcessor.HasState(entity, "Attacking", "Stunned"))
         {
             // if (combatable.ActiveHand == null || combatable.ActiveHand is not Item || combatable.ActiveHand.AnimationLibrary == null)
             // {

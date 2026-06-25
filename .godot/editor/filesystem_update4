@@ -22,3 +22,8 @@ res://Main/Shared/Events/ClientVFX.cs
 res://Main/Shared/Events/ClientSound.cs
 res://Main/Shared/Enums/AttachmentPoint.cs
 res://Main/Shared/Data/Data.cs
+res://Main/Shared/Entities/Enemy.cs
+res://Main/Shared/Assets/Scenes/Game.tscn
+res://Main/Shared/Assets/Scenes/Enemy.tscn
+res://Main/Server/Processors/AIProcessor.cs
+res://Main/Shared/Blocks/AIBlock.cs

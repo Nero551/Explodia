@@ -48,7 +48,6 @@ public class Entity
         Game.Runtime.Entities.Add(this);
         Initialize();
 
-
         EventService.Fire(new Events.EntityCreation(this));
     }
 

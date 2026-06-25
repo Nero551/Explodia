@@ -96,6 +96,9 @@ public class MovementProcessor : Processor
 
     void OnMoveRequest(RemoteEvents.MoveRequest evnt)
     {
+        if (stateProcessor.HasState(evnt.Player.Character, "Stunned"))
+            return;
+            
         var movementBlock = Entity.Get(evnt.Player.Character.Id).GetBlock<Blocks.MovementBlock>();
         movementBlock.MoveDirection = evnt.MoveDirection;
     }

@@ -14,6 +14,7 @@ sealed class ServerRuntime : Runtime
         Processor.Add<AttackProcessor>();
         Processor.Add<StateProcessor>();
         Processor.Add<HitboxProcessor>();
+        Processor.Add<AIProcessor>();
     }
 
     public override void Start()

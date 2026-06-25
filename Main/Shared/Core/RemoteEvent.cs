@@ -216,8 +216,6 @@ public abstract class RemoteEvent() : Event
         };
     }
 
-    //TODO- add enum encoding and decoding
-
     protected void WriteEnum(object value)
     {
         WriteBytes([Convert.ToByte(value)]);

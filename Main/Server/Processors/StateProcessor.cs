@@ -113,6 +113,7 @@ public class StateProcessor : Processor
 
         if (healthblock.Health <= 0)
         {
+            stateBlock.MainState = MainState.Idle;
             stateBlock.MainState = MainState.Dead;
             EventService.Fire(new Events.Died(entity));
             return;

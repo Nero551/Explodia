@@ -13,7 +13,7 @@ public class HitboxProcessor : Processor
 
     public override bool CheckProcessorDependancies()
     {
-        return Processor.Has<Processors.StateProcessor>();
+        return Processor.Has<StateProcessor, AnimationProcessor, HealthProcessor>();
     }
 
     public override bool HasRequiredBlocks(Entity entity)
@@ -66,8 +66,6 @@ public class HitboxProcessor : Processor
                 {
                     hitboxBlock.HitTargets.Add(targetCharacter, 1);
                 }
-                //TODO- add actual effect (getting hit logic).
-                //Actual Hit Logic Here pls
                 DefaultHit(hitbox, attacker, targetCharacter);
             }
         }
