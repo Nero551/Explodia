@@ -4,11 +4,11 @@ using Godot;
 
 public partial class World : Node
 {
-    // The World The Client Sees.
     public Node Players;
     public Node Workspace;
     public Node Lighting;
     public Camera Camera;
+    public UI UI;
 
     public override void _EnterTree()
     {
@@ -17,11 +17,6 @@ public partial class World : Node
         Players = GetNodeOrNull<Node>("Players");
         Lighting = GetNodeOrNull<Node>("Lighting");
         Camera = GetNodeOrNull<Camera>("Camera");
-    }
-
-    public static void Create()
-    {
-        SceneService.CreateScene<World>("World");
-        ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Node>("Game").AddChild(Game.World);
+        UI = GetNode<UI>("UI");
     }
 }

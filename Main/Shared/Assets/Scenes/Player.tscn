@@ -1,8 +1,4 @@
 [gd_scene format=3 uid="uid://cvle36gt8soas"]
 
-[ext_resource type="PackedScene" uid="uid://cuh2ouo1kwpld" path="res://Main/UI/UI.tscn" id="2_gok8u"]
-
 [node name="Player" type="Node3D" unique_id=746435136]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-
-[node name="UI" parent="." unique_id=1044242847 instance=ExtResource("2_gok8u")]

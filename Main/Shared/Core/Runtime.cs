@@ -47,7 +47,7 @@ public abstract class Runtime
             processor.Start();
         }
 
-        Entity.Create<Entities.Enemy>();
+        // Entity.Create<Entities.Enemy>();
     }
 
     public virtual void Process(double delta)
