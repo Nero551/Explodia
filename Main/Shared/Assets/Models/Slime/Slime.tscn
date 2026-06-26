@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://1uy2765hykt8" path="res://Main/Shared/Assets/Shaders/Slime.gdshader" id="2_fbgq7"]
 [ext_resource type="Texture2D" uid="uid://djnpup8jqkpff" path="res://Main/Shared/Assets/Models/Slime/Slime_UV.png" id="3_am4uu"]
-[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Utility/Attachment3D.cs" id="4_8503g"]
+[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Godot/Attachment3D.cs" id="4_8503g"]
 
 [sub_resource type="Animation" id="Animation_toj6g"]
 resource_name = "OuterAction"

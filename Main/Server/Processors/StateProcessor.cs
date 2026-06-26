@@ -24,7 +24,7 @@ public class StateProcessor : Processor
     public override void Start()
     {
         base.Start();
-        stateData = PULib.JSONHelper.JSONToCSharp("Main/Shared/Data/JSON/StateData");
+        stateData = PULib.JSONHelper.JSONToCSharp("res://Main/Shared/Data/JSON/StateData.json");
     }
 
     public override void ProcessEntities(Entity entity, double delta)
@@ -92,12 +92,11 @@ public class StateProcessor : Processor
             //Adjusting JumpPower and Speed
             if (stateData.ContainsKey(key))
             {
-                Godot.Collections.Dictionary data = (Godot.Collections.Dictionary)stateData[key];
+                var data = (Godot.Collections.Dictionary)stateData[key];
                 if (data != null)
                 {
                     resultingJumpPower = (float)data["JumpPower"];
                     resultingSpeed = (float)data["Speed"];
-                    continue;
                 }
             }
         }

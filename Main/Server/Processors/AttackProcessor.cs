@@ -53,6 +53,7 @@ public class AttackProcessor : Processor
 
         if (!stateProcessor.HasState(entity, "Attacking", "Stunned"))
         {
+            var weaponData = DataService.Load<WeaponData>("WeaponData/Fist");
             // if (combatable.ActiveHand == null || combatable.ActiveHand is not Item || combatable.ActiveHand.AnimationLibrary == null)
             // {
             //     return;
@@ -60,16 +61,16 @@ public class AttackProcessor : Processor
             // var itemData = combatable.ActiveHand.ItemData;
 
 
-            if ((PULib.GDHelper.CurrentSTime() - attackBlock.LastComboTime) < 2) //* replace with itemData ComboCooldown Time
+            if ((PULib.GDHelper.CurrentSTime() - attackBlock.LastComboTime) < weaponData.ComboCooldown)
             {
                 return;
             }
-            if ((PULib.GDHelper.CurrentSTime() - attackBlock.LastSwingTime) >= 2) //* Replace with ComboResetTime
+            if ((PULib.GDHelper.CurrentSTime() - attackBlock.LastSwingTime) >= weaponData.ComboResetTime)
             {
                 attackBlock.SwingNumber = 0;
             }
 
-            if (attackBlock.SwingNumber >= 4) //* instead of 4, put the swings in the itemData
+            if (attackBlock.SwingNumber >= weaponData.Swings)
             {
                 attackBlock.LastComboTime = PULib.GDHelper.CurrentSTime();
                 attackBlock.SwingNumber = 0;
@@ -79,7 +80,7 @@ public class AttackProcessor : Processor
             attackBlock.SwingNumber++;
             attackBlock.LastSwingTime = PULib.GDHelper.CurrentSTime();
 
-            string itemName = "Fist"; //*replace with itemData name
+            string itemName = weaponData.Name;
             Animation swingAnim = animationProcessor.GetAnim(entity, $"{itemName}/L{attackBlock.SwingNumber}");
             if (swingAnim == null)
             {
@@ -93,6 +94,7 @@ public class AttackProcessor : Processor
 
     public void OnHitMarker(AnimationMarkers.HitMarker evnt)
     {
+        //TODO- make hand service so this can know which weapon was used by getting the attacker's active hand
         // var itemData = combatable.ActiveHand.ItemData;
         // string itemName = (string)itemData["Name"];
         string hitboxName = "Fist" + "Basic Attack Hitbox"; //* itemData name
