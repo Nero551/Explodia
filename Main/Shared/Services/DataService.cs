@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Godot;
 
 public static class DataService
@@ -23,7 +22,7 @@ public static class DataService
         DirAccess.GetFilesAt(path);
         foreach (string file in DirAccess.GetFilesAt(path))
         {
-            if (file.Contains(".json"))
+            if (file.EndsWith(".json"))
             {
                 Load(file.Split(".json")[0], $"{path}/{file}");
             }
@@ -31,7 +30,7 @@ public static class DataService
 
         foreach (string folder in DirAccess.GetDirectoriesAt(path))
         {
-            SearchRecursive($"{MainPath}/{folder}");
+            SearchRecursive($"{path}/{folder}");
         }
     }
 
@@ -51,9 +50,7 @@ public static class DataService
         }
     }
 
-    //TODO- TOP PRIORITY: data registry, maps all json data files into a dictionary wwith json file name to the data c# class.
     // TODO- Replace string lookups with Id once the data registry exists.
-    //* this will provide data caching. easy lookups and checks.
 
     public static bool Find<T>(string name, out T data) where T : Data, new()
     {
@@ -62,7 +59,7 @@ public static class DataService
             data = value as T;
             return true;
         }
-        data = new();
+        data = null;
         return false;
     }
 
@@ -75,4 +72,3 @@ public static class DataService
         throw new Exception($"Data Doesn't Exist: {name}");
     }
 }
-
