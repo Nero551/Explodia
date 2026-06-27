@@ -31,15 +31,18 @@ public class InventoryProcessor : Processor
 
         var inventoryBlock = entity.GetBlock<InventoryBlock>();
 
-        if (inventoryBlock.Items.ContainsKey(name))
+        if (DataService.Find<ItemData>(name, out var itemData))
         {
-            inventoryBlock.Items[name].Name = name;
-            inventoryBlock.Items[name].Amount += amount;
-        }
-        else
-        {
-            var entry = new InventoryEntry() { Name = name, Amount = amount };
-            inventoryBlock.Items.Add(name, entry);
+            if (inventoryBlock.Items.ContainsKey(itemData.Name))
+            {
+                inventoryBlock.Items[itemData.Name].Name = itemData.Name;
+                inventoryBlock.Items[itemData.Name].Amount += amount;
+            }
+            else
+            {
+                var entry = new InventoryEntry() { Name = itemData.Name, Amount = amount };
+                inventoryBlock.Items.Add(itemData.Name, entry);
+            }
         }
     }
 
@@ -50,20 +53,23 @@ public class InventoryProcessor : Processor
 
         var inventoryBlock = entity.GetBlock<InventoryBlock>();
 
-        if (inventoryBlock.Items.ContainsKey(name))
+        if (DataService.Find<ItemData>(name, out var itemData))
         {
-            inventoryBlock.Items[name].Name = name;
-            inventoryBlock.Items[name].Amount -= amount;
-
-            if (inventoryBlock.Items[name].Amount <= 0)
+            if (inventoryBlock.Items.ContainsKey(itemData.Name))
             {
-                inventoryBlock.Items.Remove(name);
+                inventoryBlock.Items[itemData.Name].Name = itemData.Name;
+                inventoryBlock.Items[itemData.Name].Amount -= amount;
+
+                if (inventoryBlock.Items[itemData.Name].Amount <= 0)
+                {
+                    inventoryBlock.Items.Remove(itemData.Name);
+                }
             }
-        }
-        else
-        {
-            GD.PushWarning($"Item Doesn't Exist in the Player's Inventory: {name}");
-            return;
+            else
+            {
+                GD.PushWarning($"Item Doesn't Exist in the Player's Inventory: {itemData.Name}");
+                return;
+            }
         }
     }
 }

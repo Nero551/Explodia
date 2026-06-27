@@ -16,3 +16,4 @@ res://Main/UI/src/Controllers/Controller.cs
 res://Main/UI/src/UI.cs
 res://Main/Shared/Utility/InventoryEntry.cs
 res://Main/Shared/Data/JSON/WeaponData/Fist.json
+res://Main/Shared/Data/JSON/ItemData.cs
