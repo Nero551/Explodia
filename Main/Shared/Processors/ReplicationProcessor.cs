@@ -25,6 +25,7 @@ public class ReplicationProcessor : Processor
     {
         if (!NetworkService.IsServer())
             return;
+            
         elapsed += delta;
         if (elapsed < 0.05)
             return;
@@ -32,6 +33,11 @@ public class ReplicationProcessor : Processor
         elapsed = 0;
         base.Process(delta);
 
+        FlushQueues();
+    }
+
+    void FlushQueues()
+    {
         var unreliable = ReplicationQueues[ReplicationMode.Unreliable];
         var reliable = ReplicationQueues[ReplicationMode.Reliable];
         if (reliable.Count != 0)
@@ -52,25 +58,32 @@ public class ReplicationProcessor : Processor
     {
         base.ProcessEntities(entity, delta);
 
-        foreach (int blockId in entity.Blocks.Keys)
+        foreach (KeyValuePair<int, Blocks.Block> pair in entity.Blocks)
         {
-            var block = entity.GetBlock(blockId);
+            var block = pair.Value;
+            var blockId = pair.Key;
+            EnqueueChanges(entity, block, blockId);
+        }
+    }
 
-            var replicatedFields = block.ReplicatedFields;
-            var lastReplicatedFields = block.LastReplicatedFields;
+    void EnqueueChanges(Entity entity, Blocks.Block block, int blockId)
+    {
+        var replicatedFields = block.ReplicatedFields;
+        var lastReplicatedFields = block.LastReplicatedFields;
 
-            foreach (var replicatedFieldId in replicatedFields.Keys)
+        foreach (KeyValuePair<int, ReplicatedField> pair in replicatedFields)
+        {
+            var replicatedFieldId = pair.Key;
+            var replicatedField = pair.Value;
+            var value = replicatedField.Field.GetValue(block) ?? throw new Exception($"Value: {replicatedField.Field.Name} is null.");
+
+            if (!lastReplicatedFields.TryGetValue(replicatedFieldId, out var old) || !Equals(value, old))
             {
-                var replicatedField = replicatedFields[replicatedFieldId];
-                var value = replicatedField.Field.GetValue(block) ?? throw new Exception($"Value: {replicatedField.Field.Name} is null.");
+                lastReplicatedFields[replicatedFieldId] = value;
+                ReplicationBox replicationBox = new(entity.Id, blockId, replicatedFieldId, value);
+                ReplicationQueues[replicatedField.Attribute.Mode].Add(replicationBox);
 
-                if (!lastReplicatedFields.TryGetValue(replicatedFieldId, out var old)
-                    || !Equals(value, old))
-                {
-                    lastReplicatedFields[replicatedFieldId] = value;
-                    ReplicationBox replicationBox = new(entity.Id, blockId, replicatedFieldId, value);
-                    ReplicationQueues[replicatedField.Attribute.Mode].Add(replicationBox);
-                }
+                block.Changed.Invoke();
             }
         }
     }
@@ -79,17 +92,23 @@ public class ReplicationProcessor : Processor
     {
         foreach (ReplicationBox replicationBox in evnt.ReplicationQueue)
         {
-            var entity = Entity.Get(replicationBox.EntityId);
-            var block = entity.GetBlock(replicationBox.BlockId);
-            var replicatedField = block.ReplicatedFields[replicationBox.FieldId];
-            if (replicationBox.IsEnum)
-            {
-                replicatedField.Field.SetValue(block, Enum.ToObject(replicatedField.Field.FieldType, replicationBox.Value));
-            }
-            else
-            {
-                replicatedField.Field.SetValue(block, replicationBox.Value);
-            }
-         }
+            ApplyChanges(replicationBox);
+        }
+    }
+
+    void ApplyChanges(ReplicationBox replicationBox)
+    {
+        var entity = Entity.Get(replicationBox.EntityId);
+        var block = entity.GetBlock(replicationBox.BlockId);
+        var replicatedField = block.ReplicatedFields[replicationBox.FieldId];
+        if (replicationBox.IsEnum)
+        {
+            replicatedField.Field.SetValue(block, Enum.ToObject(replicatedField.Field.FieldType, replicationBox.Value));
+        }
+        else
+        {
+            replicatedField.Field.SetValue(block, replicationBox.Value);
+        }
+        block.Changed.Invoke();
     }
 }

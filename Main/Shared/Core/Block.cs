@@ -29,6 +29,8 @@ public abstract class Block
     /// 
     public Dictionary<int, ReplicatedField> ReplicatedFields = [];
 
+    public Action Changed = () => { };
+
     /// <summary>
     /// ID of the entity this block belongs to.
     /// </summary>

@@ -32,13 +32,13 @@ public class HealthProcessor : Processor
         IncreaseHealth(entity, healthBlock.HealthRegen);
     }
 
-    public void IncreaseHealth(Entity entity, int change)
+    public void IncreaseHealth(Entity entity, float change)
     {
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
         healthBlock.Health = Math.Min(healthBlock.MaxHealth, healthBlock.Health + change);
     }
 
-    public void DecreaseHealth(Entity entity, int change)
+    public void DecreaseHealth(Entity entity, float change)
     {
         var healthBlock = entity.GetBlock<Blocks.HealthBlock>();
         healthBlock.Health = Math.Max(0, healthBlock.Health - change);

@@ -6,8 +6,8 @@ namespace Blocks;
 
 public class HealthBlock : Block
 {
-    [Replicated(ReplicationMode.Reliable)] public int Health = 100;
-    [Replicated(ReplicationMode.Reliable)] public int MaxHealth = 100;
-    [Replicated(ReplicationMode.Reliable)] public int HealthRegen = 1;
+    [Replicated(ReplicationMode.Reliable)] public float Health = 100;
+    [Replicated(ReplicationMode.Reliable)] public float MaxHealth = 100;
+    [Replicated(ReplicationMode.Reliable)] public float HealthRegen = 1;
     public float RegenRate = 0.5f;
 }

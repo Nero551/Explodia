@@ -14,9 +14,6 @@ public partial class Game : Node
         keep godot use to a minimum. godot physics and collisions on the server. godot nodes for visuals on the client
     */
 
-    //TODO- integrate the game to the new framework and network
-    //* perhaps an event that fires on entity creation. processors can react to that event
-
     public override void _EnterTree()
     {
         Runtime = NetworkService.IsServer() ? new ServerRuntime() : new ClientRuntime();
