@@ -38,12 +38,21 @@ public static class DataService
     {
         Godot.Collections.Dictionary json = PULib.JSONHelper.JSONToCSharp(filepath);
 
+        if (DataRegistry.ContainsKey(name))
+        {
+            throw new Exception(
+                $"Duplicate Data Name: {name}\n" +
+                $"Existing: {DataRegistry[name].SourcePath}\n" +
+                $"Duplicate: {filepath}");
+        }
+
         if (json.ContainsKey("Type"))
         {
             string dataType = (string)json["Type"];
             if (dataType != null && DataTypes.ContainsKey(dataType))
             {
                 Data data = DataTypes[dataType]();
+                data.SourcePath = filepath;
                 data.Load(json);
                 DataRegistry.Add(name, data);
             }
