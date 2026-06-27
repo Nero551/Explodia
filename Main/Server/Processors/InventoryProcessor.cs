@@ -1,4 +1,5 @@
 using System;
+using Blocks;
 using Events;
 using Godot;
 
@@ -21,11 +22,49 @@ public class InventoryProcessor : Processor
     public override void Process(double delta)
     {
         base.Process(delta);
-
     }
 
-    public void AddItem() { }
+    public void AddItem(Entity entity, string name, int amount)
+    {
+        if (!HasRequiredBlocks(entity))
+            return;
 
-    public void RemoveItem() { }
+        var inventoryBlock = entity.GetBlock<InventoryBlock>();
+
+        if (inventoryBlock.Items.ContainsKey(name))
+        {
+            inventoryBlock.Items[name].Name = name;
+            inventoryBlock.Items[name].Amount += amount;
+        }
+        else
+        {
+            var entry = new InventoryEntry() { Name = name, Amount = amount };
+            inventoryBlock.Items.Add(name, entry);
+        }
+    }
+
+    public void RemoveItem(Entity entity, string name, int amount)
+    {
+        if (!HasRequiredBlocks(entity))
+            return;
+
+        var inventoryBlock = entity.GetBlock<InventoryBlock>();
+
+        if (inventoryBlock.Items.ContainsKey(name))
+        {
+            inventoryBlock.Items[name].Name = name;
+            inventoryBlock.Items[name].Amount -= amount;
+
+            if (inventoryBlock.Items[name].Amount <= 0)
+            {
+                inventoryBlock.Items.Remove(name);
+            }
+        }
+        else
+        {
+            GD.PushWarning($"Item Doesn't Exist in the Player's Inventory: {name}");
+            return;
+        }
+    }
 }
 

@@ -29,7 +29,16 @@ public abstract class Block
     /// 
     public Dictionary<int, ReplicatedField> ReplicatedFields = [];
 
+    /// <summary>
+    /// Fires when a field in the block changes.
+    /// Currently only works for fields marked with [Replicated].
+    /// </summary>
+    /// 
     public Action Changed = () => { };
+
+    // TODO: Changed is currently fired only for replicated fields.
+    //* Generalize into a block-wide field change notification system
+    //* so local-only fields can also notify listeners.
 
     /// <summary>
     /// ID of the entity this block belongs to.

@@ -26,6 +26,7 @@ public abstract class Runtime
     protected virtual void StartServices()
     {
         NetworkService.Start();
+        DataService.Start();
     }
 
     protected virtual void ProcessServices(double delta)

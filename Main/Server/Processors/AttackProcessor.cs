@@ -53,7 +53,7 @@ public class AttackProcessor : Processor
 
         if (!stateProcessor.HasState(entity, "Attacking", "Stunned"))
         {
-            var weaponData = DataService.Load<WeaponData>("WeaponData/Fist");
+            var weaponData = DataService.Get<WeaponData>("Fist");
             // if (combatable.ActiveHand == null || combatable.ActiveHand is not Item || combatable.ActiveHand.AnimationLibrary == null)
             // {
             //     return;
@@ -105,7 +105,7 @@ public class AttackProcessor : Processor
         hitboxProcessor.SetHitboxSize(hitbox, hitboxSize);
         hitboxProcessor.SetHitboxPosition(hitbox, attackerNode.GetNode<Marker3D>("Armature/HitboxLocation").GlobalPosition);
         hitboxProcessor.SetHitboxAttacker(hitbox, evnt.Entity);
-		hitboxProcessor.SetHitboxDuration(hitbox, 0.4f);
+        hitboxProcessor.SetHitboxDuration(hitbox, 0.4f);
     }
 }
 

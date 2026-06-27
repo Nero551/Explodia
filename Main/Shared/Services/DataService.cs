@@ -1,16 +1,78 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Godot;
 
 public static class DataService
 {
-    public static T Load<T>(string filepath) where T : Data, new()
-    {
-        Godot.Collections.Dictionary json = PULib.JSONHelper.JSONToCSharp($"res://Main/Shared/Data/JSON/{filepath}.json");
-        T data = new();
-        data.Load(json);
+    public static Dictionary<string, Data> DataRegistry = [];
+    static readonly string MainPath = "res://Main/Shared/Data/JSON";
 
-        return data;
+    static readonly Dictionary<string, Func<Data>> DataTypes = new()
+    {
+        { "Weapon", () => new WeaponData() },
+    };
+
+    public static void Start()
+    {
+        SearchRecursive(MainPath);
+    }
+
+    static void SearchRecursive(string path)
+    {
+        DirAccess.GetFilesAt(path);
+        foreach (string file in DirAccess.GetFilesAt(path))
+        {
+            if (file.Contains(".json"))
+            {
+                Load(file.Split(".json")[0], $"{path}/{file}");
+            }
+        }
+
+        foreach (string folder in DirAccess.GetDirectoriesAt(path))
+        {
+            SearchRecursive($"{MainPath}/{folder}");
+        }
+    }
+
+    static void Load(string name, string filepath)
+    {
+        Godot.Collections.Dictionary json = PULib.JSONHelper.JSONToCSharp(filepath);
+
+        if (json.ContainsKey("Type"))
+        {
+            string dataType = (string)json["Type"];
+            if (dataType != null && DataTypes.ContainsKey(dataType))
+            {
+                Data data = DataTypes[dataType]();
+                data.Load(json);
+                DataRegistry.Add(name, data);
+            }
+        }
+    }
+
+    //TODO- TOP PRIORITY: data registry, maps all json data files into a dictionary wwith json file name to the data c# class.
+    // TODO- Replace string lookups with Id once the data registry exists.
+    //* this will provide data caching. easy lookups and checks.
+
+    public static bool Find<T>(string name, out T data) where T : Data, new()
+    {
+        if (DataRegistry.TryGetValue(name, out Data value) && value is T)
+        {
+            data = value as T;
+            return true;
+        }
+        data = new();
+        return false;
+    }
+
+    public static T Get<T>(string name) where T : Data, new()
+    {
+        if (DataRegistry.TryGetValue(name, out Data value) && value is T)
+        {
+            return value as T;
+        }
+        throw new Exception($"Data Doesn't Exist: {name}");
     }
 }
 

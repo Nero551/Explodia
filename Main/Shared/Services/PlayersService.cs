@@ -4,7 +4,7 @@ using Godot;
 
 public static class PlayersService
 {
-    public static BiDictionary<int, Entities.Player> Players = new();
+    public static Dictionary<int, Entities.Player> Players = [];
 
     public static Entities.Player CreatePlayer(int userId)
     {
@@ -33,8 +33,8 @@ public static class PlayersService
     {
         if (Players.ContainsKey(userId))
         {
-            Players.GetByKey(userId).Destroy();
-            Players.RemoveByKey(userId);
+            Players[userId].Destroy();
+            Players.Remove(userId);
         }
     }
 
@@ -42,17 +42,8 @@ public static class PlayersService
     {
         if (Players.ContainsKey(userId))
         {
-            return Players.GetByKey(userId);
+            return Players[userId];
         }
         return Entity.Create<Entities.Player>();
-    }
-
-    public static int GetUserId(Entities.Player player)
-    {
-        if (Players.ContainsValue(player))
-        {
-            return Players.GetByValue(player);
-        }
-        return default;
     }
 }

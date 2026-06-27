@@ -1,4 +1,5 @@
 using System;
+using Blocks;
 using Godot;
 
 
@@ -11,6 +12,8 @@ public class Player : Entity
     protected override void Initialize()
     {
         base.Initialize();
+        AddBlock<InventoryBlock>();
+
         Node node = SceneService.CreateScene<Node>("Player");
         ConnectTo(node);
         Game.World.Players.AddChild(node);

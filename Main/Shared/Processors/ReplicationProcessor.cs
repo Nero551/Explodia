@@ -25,7 +25,7 @@ public class ReplicationProcessor : Processor
     {
         if (!NetworkService.IsServer())
             return;
-            
+
         elapsed += delta;
         if (elapsed < 0.05)
             return;
@@ -34,24 +34,6 @@ public class ReplicationProcessor : Processor
         base.Process(delta);
 
         FlushQueues();
-    }
-
-    void FlushQueues()
-    {
-        var unreliable = ReplicationQueues[ReplicationMode.Unreliable];
-        var reliable = ReplicationQueues[ReplicationMode.Reliable];
-        if (reliable.Count != 0)
-        {
-            NetworkService.SendToAllClients<RemoteEvents.Replication.ReliableReplication>(
-                reliable);
-            reliable.Clear();
-        }
-        if (unreliable.Count != 0)
-        {
-            NetworkService.SendToAllClients<RemoteEvents.Replication.UnreliableReplication>(
-                unreliable);
-            unreliable.Clear();
-        }
     }
 
     public override void ProcessEntities(Entity entity, double delta)
@@ -63,6 +45,24 @@ public class ReplicationProcessor : Processor
             var block = pair.Value;
             var blockId = pair.Key;
             EnqueueChanges(entity, block, blockId);
+        }
+    }
+
+    void FlushQueues()
+    {
+        var unreliableQueue = ReplicationQueues[ReplicationMode.Unreliable];
+        var reliableQueue = ReplicationQueues[ReplicationMode.Reliable];
+        if (reliableQueue.Count != 0)
+        {
+            NetworkService.SendToAllClients<RemoteEvents.Replication.ReliableReplication>(
+                reliableQueue);
+            reliableQueue.Clear();
+        }
+        if (unreliableQueue.Count != 0)
+        {
+            NetworkService.SendToAllClients<RemoteEvents.Replication.UnreliableReplication>(
+                unreliableQueue);
+            unreliableQueue.Clear();
         }
     }
 

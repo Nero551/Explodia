@@ -1,6 +1,6 @@
 {
 	"Name": "Fist",
-	"Type": "Melee",
+	"Type": "Weapon",
 	"Damage": 7.5,
 	"Swings": 4,
 	"ComboCooldown": 2,
