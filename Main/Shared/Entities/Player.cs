@@ -13,6 +13,7 @@ public class Player : Entity
     {
         base.Initialize();
         AddBlock<InventoryBlock>();
+        AddBlock<EquippedBlock>();
 
         Node node = SceneService.CreateScene<Node>("Player");
         ConnectTo(node);

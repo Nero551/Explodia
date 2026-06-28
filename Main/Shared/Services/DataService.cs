@@ -4,9 +4,7 @@ using Godot;
 
 public static class DataService
 {
-    public static Dictionary<string, Data> DataRegistry = [];
-    static readonly string MainPath = "res://Main/Shared/Data/JSON";
-
+    static readonly Dictionary<string, Data> DataRegistry = [];
     static readonly Dictionary<string, Func<Data>> DataTypes = new()
     {
         { "Weapon", () => new WeaponData() },
@@ -14,12 +12,11 @@ public static class DataService
 
     public static void Start()
     {
-        SearchRecursive(MainPath);
+        SearchRecursive("res://Main/Shared/Data/JSON");
     }
 
     static void SearchRecursive(string path)
     {
-        DirAccess.GetFilesAt(path);
         foreach (string file in DirAccess.GetFilesAt(path))
         {
             if (file.EndsWith(".json"))

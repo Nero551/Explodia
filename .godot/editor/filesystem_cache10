@@ -1,5 +1,5 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1782454859
+::res://::1782572933
 default_bus_layout.tres::AudioBusLayout::1167112612547889023::1779772107::0::1::::<><><>0<>0<><>::
 export_presets.cfg::TextFile::-1::1777175011::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D::8530795125588292366::1777175011::1777175133::1::::<><><>0<>0<>e27591799ef7cb1fd3b317f5e073cf54<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.ctex::
@@ -75,9 +75,9 @@ Player.tscn::PackedScene::6269809747680719434::1782453618::0::1::::<><><>0<>0<><
 Point.tscn::PackedScene::1525440771849773043::1777175011::0::1::::<><><>0<>0<><>::
 Weapon.tscn::PackedScene::4316840013112142974::1782019696::0::1::::<><><>0<>0<><>::uid://bbcgluyxqd0pa::::res://Main2/Shared/Entities/Weapon/Weapon.cs
 World.tscn::PackedScene::3278905025743170598::1782453801::0::1::::<><><>0<>0<><>::uid://wm74fyw2ougo::::res://Main/Client/World.cs<>uid://bf3w1bajov4kr::::res://Main/Shared/Assets/Textures/PrototypeFloor.png<>uid://qjxhh1wa3trr::::res://Main/Shared/Godot/Camera.cs<>uid://cuh2ouo1kwpld::::res://Main/UI/UI.tscn
-::res://Main/Shared/Assets/Shaders/::1782444957
+::res://Main/Shared/Assets/Shaders/::1782535996
 Sky.gdshader::Shader::5954241490473563430::1779778499::0::1::::<><><>0<>0<><>::
-Slime.gdshader::Shader::1867704643941378943::1782444957::0::1::::<><><>0<>0<><>::
+Slime.gdshader::Shader::1867704643941378943::1782535996::0::1::::<><><>0<>0<><>::
 ::res://Main/Shared/Assets/Textures/::1782019838
 PrototypeFloor.png::CompressedTexture2D::2796549736431163137::1778467601::1782019838::1::::<><><>0<>0<>92a353914d68478f6b4109a32e04ce6a<>res://.godot/imported/PrototypeFloor.png-a640c36b62bc13c32006cca723cb65cd.s3tc.ctex::
 ::res://Main/Shared/Assets/VFX/::1779437367
@@ -92,7 +92,7 @@ AnimationBlock.cs::CSharpScript::6091179437294036045::1782193980::0::1::::<><><>
 AttackBlock.cs::CSharpScript::1223261553042383943::1782270893::0::1::::<><><>0<>0<><>::
 HealthBlock.cs::CSharpScript::5882760509181976986::1782527986::0::1::::<><><>0<>0<><>::
 HitboxBlock.cs::CSharpScript::6293149467455279066::1782284018::0::1::::<><><>0<>0<><>::
-InventoryBlock.cs::CSharpScript::6933011793550411980::1782529613::0::1::::<><><>0<>0<><>::
+InventoryBlock.cs::CSharpScript::6933011793550411980::1782564568::0::1::::<><><>0<>0<><>::
 MovementBlock.cs::CSharpScript::5874213889830066039::1782194585::0::1::::<><><>0<>0<><>::
 StateBlock.cs::CSharpScript::1513863995101147486::1782181916::0::1::::<><><>0<>0<><>::
 TransformBlock.cs::CSharpScript::4682913895390717165::1782124983::0::1::::<><><>0<>0<><>::
@@ -104,11 +104,11 @@ Game.cs::CSharpScript::6152587346251148835::1782456260::0::1::::<>Node<><>0<>0<>
 Processor.cs::CSharpScript::6930042318368058869::1782262208::0::1::::<><><>0<>0<><>::
 RemoteEvent.cs::CSharpScript::3347210667340910149::1782365838::0::1::::<><><>0<>0<><>::
 Runtime.cs::CSharpScript::5131196066065623049::1782531072::0::1::::<><><>0<>0<><>::
-::res://Main/Shared/Data/::1782440846
+::res://Main/Shared/Data/::1782533971
 Data.cs::CSharpScript::3564846970259382817::1782533555::0::1::::<><><>0<>0<><>::
 ItemData.cs::CSharpScript::1007286171666145218::1782533722::0::1::::<><><>0<>0<><>::
 WeaponData.cs::CSharpScript::1650879360873651244::1782533738::0::1::::<><><>0<>0<><>::
-::res://Main/Shared/Data/JSON/::1782533696
+::res://Main/Shared/Data/JSON/::1782533971
 StateData.json::JSON::-1::1782194424::0::1::::<><><>0<>0<><>::
 ::res://Main/Shared/Data/JSON/WeaponData/::1782532894
 Fist.json::JSON::-1::1782532894::0::1::::<><><>0<>0<><>::
@@ -158,7 +158,7 @@ NodeSyncProcessor.cs::CSharpScript::474714635815787976::1782279001::0::1::::<><>
 ReplicationProcessor.cs::CSharpScript::5189095299877410659::1782528529::0::1::::<><><>0<>0<><>::
 ::res://Main/Shared/Services/::1782439606
 AudioService.cs::CSharpScript::7942159916297620817::1782019908::0::1::::<><><>0<>0<><>::
-DataService.cs::CSharpScript::3484685704712418639::1782533585::0::1::::<><><>0<>0<><>::
+DataService.cs::CSharpScript::3484685704712418639::1782535969::0::1::::<><><>0<>0<><>::
 EventService.cs::CSharpScript::9042842559487688255::1782263875::0::1::::<><><>0<>0<><>::
 NetworkService.cs::CSharpScript::7450170047453631854::1782531505::0::1::::<><><>0<>0<><>::
 PlayersService.cs::CSharpScript::5254589858663930620::1782531566::0::1::::<><><>0<>0<><>::
@@ -168,13 +168,13 @@ VisualService.cs::CSharpScript::1220377536551001748::1782051704::0::1::::<><><>0
 ::res://Main/Shared/Utility/::1782529530
 Attributes.cs::CSharpScript::1412892930032955895::1782125004::0::1::::<><><>0<>0<><>::
 BiDictionary.cs::CSharpScript::3574404202788039504::1781962720::0::1::::<><><>0<>0<><>::
+InventoryEntry.cs::CSharpScript::1271542646166265090::1782529923::0::1::::<><><>0<>0<><>::
 ReplicatedField.cs::CSharpScript::3146751146614475582::1781960120::0::1::::<><><>0<>0<><>::
 ReplicationBox.cs::CSharpScript::794620423427675494::1782121353::0::1::::<><><>0<>0<><>::
-InventoryEntry.cs::CSharpScript::1271542646166265090::1782529923::0::1::::<><><>0<>0<><>::
 Timer.cs::CSharpScript::6490687697668510854::1782263202::0::1::::<><><>0<>0<><>::
-::res://Main/UI/::1782533858
+::res://Main/UI/::1782535996
 Label.cs::CSharpScript::7839520305974934850::1781873909::0::1::::<>Label<><>0<>0<><>::
-UI.tscn::PackedScene::6192734317634462789::1782533858::0::1::::<><><>0<>0<><>::uid://cwxpvu2hprq2p::::res://Main/UI/src/UI.cs
+UI.tscn::PackedScene::6192734317634462789::1782535996::0::1::::<><><>0<>0<><>::uid://cwxpvu2hprq2p::::res://Main/UI/src/UI.cs
 ::res://Main/UI/Assets/::1782447168
 ::res://Main/UI/src/::1782454859
 UI.cs::CSharpScript::6365425964845291901::1782455596::0::1::::<>CanvasLayer<><>0<>0<><>::
