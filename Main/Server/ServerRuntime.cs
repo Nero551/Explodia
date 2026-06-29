@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Processors;
 
 sealed class ServerRuntime : Runtime
 {
@@ -9,6 +8,12 @@ sealed class ServerRuntime : Runtime
     public override void Start()
     {
         Server.Start();
+        StateService.Start();
+        AnimationService.Start();
+        MovementService.Start();
+        HealthService.Start();
+        AttackService.Start();
+        HitboxService.Start();
 
         base.Start();
     }
@@ -39,10 +44,14 @@ sealed class ServerRuntime : Runtime
     public override void ProcessEntities(Entity entity, double delta)
     {
         base.ProcessEntities(entity, delta);
+        StateService.ProcessEntities(entity, delta);
+        AnimationService.ProcessEntities(entity, delta);
+        AIService.ProcessEntities(entity, delta);
     }
 
     public override void PhysicsProcessEntities(Entity entity, double delta)
     {
+        MovementService.PhysicsProcessEntities(entity, delta);
         base.PhysicsProcessEntities(entity, delta);
     }
 

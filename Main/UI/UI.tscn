@@ -20,7 +20,6 @@ border_blend = true
 script = ExtResource("1_41lfm")
 
 [node name="HUD" type="Control" parent="." unique_id=487205140]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,6 +53,7 @@ step = 0.001
 value = 0.85
 
 [node name="Inventory" type="Control" parent="." unique_id=609178391]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1200.0

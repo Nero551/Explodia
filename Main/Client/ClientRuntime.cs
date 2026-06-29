@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Processors;
 
 sealed class ClientRuntime : Runtime
 {
@@ -10,13 +9,17 @@ sealed class ClientRuntime : Runtime
     public override void Start()
     {
         Client.Start();
-
+        InputService.Start();
+        ClientEffectsService.Start();
+        
         base.Start();
     }
 
     public override void Process(double delta)
     {
         Client.Process(delta);
+        InputService.Process(delta);
+        CameraService.Process(delta);
 
         base.Process(delta);
     }
@@ -29,6 +32,7 @@ sealed class ClientRuntime : Runtime
     public override void InputProcess(InputEvent inputEvent)
     {
         base.InputProcess(inputEvent);
+        CameraService.InputProcess(inputEvent);
     }
 
     //*Entities

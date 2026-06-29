@@ -5,9 +5,13 @@ public static class TimerService
 {
     private static readonly HashSet<Timer> Timers = [];
 
-    public static Timer CreateTimer(float durationInSeconds, bool repeat, Action callback)
+    public static Timer CreateTimer(float durationInSeconds, bool repeat, Action callback = default)
     {
-        Timer timer = new() { Action = callback, Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat };
+        Timer timer = new() { Duration = durationInSeconds, Remaining = durationInSeconds, Repeat = repeat };
+        if (callback != null)
+        {
+            timer.Action = callback;
+        }
         Timers.Add(timer);
 
         return timer;
@@ -30,7 +34,7 @@ public static class TimerService
 
             if (timer.Remaining <= 0)
             {
-                callback.Invoke();
+                callback?.Invoke();
                 if (timer.Repeat)
                 {
                     timer.Remaining = timer.Duration;
@@ -76,5 +80,14 @@ public static class TimerService
         {
             Timers.Remove(timer);
         }
+    }
+
+    public static bool CheckTimer(Timer timer)
+    {
+        if (timer.Remaining <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

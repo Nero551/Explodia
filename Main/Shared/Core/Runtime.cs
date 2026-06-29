@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Processors;
+using RemoteEvents.Replication;
 
 public abstract class Runtime
 {
@@ -13,12 +13,13 @@ public abstract class Runtime
     {
         NetworkService.Start();
         DataService.Start();
+        ReplicationService.Start();
 
         foreach (Entity entity in Game.Runtime.Entities)
         {
             StartEntities(entity);
         }
-        // Entity.Create<Entities.Enemy>();
+        Entity.Create<Entities.Enemy>();
     }
 
     public virtual void Process(double delta)
@@ -33,8 +34,6 @@ public abstract class Runtime
 
     public virtual void PhysicsProcess(double delta)
     {
-
-
         foreach (Entity entity in Game.Runtime.Entities)
         {
             PhysicsProcessEntities(entity, delta);
@@ -43,8 +42,6 @@ public abstract class Runtime
 
     public virtual void InputProcess(InputEvent inputEvent)
     {
-
-
         foreach (Entity entity in Game.Runtime.Entities)
         {
             InputProcessEntities(entity, inputEvent);
@@ -59,12 +56,12 @@ public abstract class Runtime
 
     public virtual void ProcessEntities(Entity entity, double delta)
     {
-
+        NodeSyncService.ProcessEntities(entity, delta);
     }
 
     public virtual void PhysicsProcessEntities(Entity entity, double delta)
     {
-
+        NodeSyncService.PhysicsProcessEntities(entity, delta);
     }
 
     public virtual void InputProcessEntities(Entity entity, InputEvent inputEvent)
