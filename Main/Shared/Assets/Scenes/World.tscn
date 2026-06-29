@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmylc7ipavhs5"]
 
-[ext_resource type="Script" uid="uid://wm74fyw2ougo" path="res://Main/Client/World.cs" id="1_ffghn"]
+[ext_resource type="Script" uid="uid://wm74fyw2ougo" path="res://Main/Shared/Core/World.cs" id="1_ffghn"]
 [ext_resource type="Texture2D" uid="uid://bf3w1bajov4kr" path="res://Main/Shared/Assets/Textures/PrototypeFloor.png" id="1_yypiu"]
 [ext_resource type="Script" uid="uid://qjxhh1wa3trr" path="res://Main/Shared/Godot/Camera.cs" id="3_c002m"]
 [ext_resource type="PackedScene" uid="uid://cuh2ouo1kwpld" path="res://Main/UI/UI.tscn" id="4_4ni0c"]

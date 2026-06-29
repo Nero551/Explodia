@@ -5,20 +5,7 @@ using Processors;
 
 sealed class ServerRuntime : Runtime
 {
-    protected override void AddProcessors()
-    {
-        base.AddProcessors();
-        Processor.Add<MovementProcessor>();
-        Processor.Add<AnimationProcessor>();
-        Processor.Add<HealthProcessor>();
-        Processor.Add<AttackProcessor>();
-        Processor.Add<StateProcessor>();
-        Processor.Add<HitboxProcessor>();
-        Processor.Add<AIProcessor>();
-        Processor.Add<InventoryProcessor>();
-        Processor.Add<EquipProcessor>();
-    }
-
+    //*Global
     public override void Start()
     {
         Server.Start();
@@ -36,5 +23,31 @@ sealed class ServerRuntime : Runtime
     public override void PhysicsProcess(double delta)
     {
         base.PhysicsProcess(delta);
+    }
+
+    public override void InputProcess(InputEvent inputEvent)
+    {
+        base.InputProcess(inputEvent);
+    }
+
+    //*Entities
+    public override void StartEntities(Entity entity)
+    {
+        base.StartEntities(entity);
+    }
+
+    public override void ProcessEntities(Entity entity, double delta)
+    {
+        base.ProcessEntities(entity, delta);
+    }
+
+    public override void PhysicsProcessEntities(Entity entity, double delta)
+    {
+        base.PhysicsProcessEntities(entity, delta);
+    }
+
+    public override void InputProcessEntities(Entity entity, InputEvent inputEvent)
+    {
+        base.InputProcessEntities(entity, inputEvent);
     }
 }

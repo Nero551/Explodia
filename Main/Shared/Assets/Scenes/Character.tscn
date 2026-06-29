@@ -1,16 +1,16 @@
 [gd_scene format=4 uid="uid://8plp26spdxm4"]
 
-[ext_resource type="AnimationLibrary" uid="uid://bmxnhhsmxiwbc" path="res://Main/Shared/Assets/Animations/Default/Default.tres" id="1_8hv88"]
-[ext_resource type="AnimationLibrary" uid="uid://bv6qkdpoft88a" path="res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres" id="1_n1wxu"]
-[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Godot/Attachment3D.cs" id="3_1jm8k"]
-[ext_resource type="Texture2D" uid="uid://d37l0xu8xlfqa" path="res://Main/Shared/Assets/Models/Character_AnimationDummy1_diff.png" id="4_5ovk3"]
-[ext_resource type="Script" uid="uid://b3nsn3kvpw86h" path="res://Main/Shared/Godot/ModdedAnimationPlayer.cs" id="5_viaga"]
+[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Godot/Attachment3D.cs" id="1_chof2"]
+[ext_resource type="Texture2D" uid="uid://d37l0xu8xlfqa" path="res://Main/Shared/Assets/Models/Character_AnimationDummy1_diff.png" id="2_21bkj"]
+[ext_resource type="AnimationLibrary" uid="uid://bmxnhhsmxiwbc" path="res://Main/Shared/Assets/Animations/Default/Default.tres" id="3_f5osb"]
+[ext_resource type="AnimationLibrary" uid="uid://bv6qkdpoft88a" path="res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres" id="4_hfi1u"]
+[ext_resource type="Script" uid="uid://b3nsn3kvpw86h" path="res://Main/Shared/Godot/ModdedAnimationPlayer.cs" id="5_qu670"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t3ed"]
 resource_name = "Texture"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("4_5ovk3")
+albedo_texture = ExtResource("2_21bkj")
 metadata/_gltf_primary_texture_coord = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tr11a"]
@@ -246,7 +246,7 @@ collision_layer = 0
 
 [node name="Root" type="Marker3D" parent="." unique_id=2081094734 node_paths=PackedStringArray("AttachWhat", "AttachTo")]
 transform = Transform3D(-0.19999905, -0.00062266295, 3.4882174e-05, -3.474476e-05, 0.022294343, 0.19875354, -0.00062267063, 0.19875257, -0.022294356, -2.4812425e-09, 0.56103176, -0.0156114595)
-script = ExtResource("3_1jm8k")
+script = ExtResource("1_chof2")
 AttachWhat = NodePath(".")
 AttachTo = NodePath("../Armature/Skeleton3D/Torso")
 
@@ -402,7 +402,7 @@ shape = SubResource("CylinderShape3D_ceeys")
 debug_color = Color(0.35453683, 0.86174, 0.99999994, 1)
 
 [node name="ModdedAnimationPlayer" type="AnimationPlayer" parent="." unique_id=2030831588]
-libraries/Default = ExtResource("1_8hv88")
-libraries/Fist = ExtResource("1_n1wxu")
-script = ExtResource("5_viaga")
+libraries/Default = ExtResource("3_f5osb")
+libraries/Fist = ExtResource("4_hfi1u")
+script = ExtResource("5_qu670")
 metadata/_custom_type_script = "uid://b3nsn3kvpw86h"

@@ -1,17 +1,17 @@
 [gd_scene format=4 uid="uid://cfbs7n6wipav8"]
 
-[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Godot/Attachment3D.cs" id="3_mvupp"]
-[ext_resource type="Texture2D" uid="uid://d37l0xu8xlfqa" path="res://Main/Shared/Assets/Models/Character_AnimationDummy1_diff.png" id="4_fmutt"]
-[ext_resource type="AnimationLibrary" uid="uid://bmxnhhsmxiwbc" path="res://Main/Shared/Assets/Animations/Default/Default.tres" id="4_l6u0n"]
-[ext_resource type="AnimationLibrary" uid="uid://bv6qkdpoft88a" path="res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres" id="5_2isr6"]
-[ext_resource type="AnimationLibrary" uid="uid://daf4acs5qkjl3" path="res://Main/Shared/Assets/Animations/HitReactions/HitReactions.tres" id="6_1uerv"]
-[ext_resource type="Script" uid="uid://b3nsn3kvpw86h" path="res://Main/Shared/Godot/ModdedAnimationPlayer.cs" id="7_q14br"]
+[ext_resource type="Script" uid="uid://k18bkebrwtno" path="res://Main/Shared/Godot/Attachment3D.cs" id="1_eiypd"]
+[ext_resource type="Texture2D" uid="uid://d37l0xu8xlfqa" path="res://Main/Shared/Assets/Models/Character_AnimationDummy1_diff.png" id="2_wm1a2"]
+[ext_resource type="AnimationLibrary" uid="uid://bmxnhhsmxiwbc" path="res://Main/Shared/Assets/Animations/Default/Default.tres" id="3_62xhm"]
+[ext_resource type="AnimationLibrary" uid="uid://bv6qkdpoft88a" path="res://Main/Shared/Assets/Items/Weapons/Melee/Fist/Animations.tres" id="4_63v26"]
+[ext_resource type="AnimationLibrary" uid="uid://daf4acs5qkjl3" path="res://Main/Shared/Assets/Animations/HitReactions/HitReactions.tres" id="5_uvthw"]
+[ext_resource type="Script" uid="uid://b3nsn3kvpw86h" path="res://Main/Shared/Godot/ModdedAnimationPlayer.cs" id="6_4ti70"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t3ed"]
 resource_name = "Texture"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("4_fmutt")
+albedo_texture = ExtResource("2_wm1a2")
 metadata/_gltf_primary_texture_coord = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4j2bq"]
@@ -245,7 +245,7 @@ radius = 0.371
 [node name="__Meta" type="Node3D" parent="." unique_id=96101664]
 
 [node name="Root" type="Marker3D" parent="." unique_id=911883698 node_paths=PackedStringArray("AttachWhat")]
-script = ExtResource("3_mvupp")
+script = ExtResource("1_eiypd")
 AttachWhat = NodePath(".")
 
 [node name="Armature" type="Node3D" parent="." unique_id=1636836805]
@@ -400,8 +400,8 @@ shape = SubResource("CylinderShape3D_2lkev")
 debug_color = Color(0.35453683, 0.86174, 0.99999994, 1)
 
 [node name="ModdedAnimationPlayer" type="AnimationPlayer" parent="." unique_id=807718978]
-libraries/Default = ExtResource("4_l6u0n")
-libraries/Fist = ExtResource("5_2isr6")
-libraries/HitReactions = ExtResource("6_1uerv")
-script = ExtResource("7_q14br")
+libraries/Default = ExtResource("3_62xhm")
+libraries/Fist = ExtResource("4_63v26")
+libraries/HitReactions = ExtResource("5_uvthw")
+script = ExtResource("6_4ti70")
 metadata/_custom_type_script = "uid://b3nsn3kvpw86h"

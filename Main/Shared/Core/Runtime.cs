@@ -3,77 +3,72 @@ using System.Collections.Generic;
 using Godot;
 using Processors;
 
-/// <summary>
-/// Core runtime manager for the Depths framework.
-/// </summary>
-/// <remarks>
-/// Handles entity registration, processor execution, and global update loops.
-/// Runs both server and client-side simulation systems depending on configuration.
-/// </remarks>
-/// 
 public abstract class Runtime
 {
-    public List<Processor> Processors = [];
     public HashSet<Entity> Entities = [];
     public int NextEntityId = 0;
 
-    protected virtual void AddProcessors()
-    {
-        Processor.Add<ReplicationProcessor>();
-        Processor.Add<NodeSyncProcessor>();
-    }
-
-    protected virtual void StartServices()
+    //*Global
+    public virtual void Start()
     {
         NetworkService.Start();
         DataService.Start();
-    }
 
-    protected virtual void ProcessServices(double delta)
-    {
-        TimerService.Process(delta);
-    }
-
-    public virtual void Start()
-    {
-        StartServices();
-        AddProcessors();
-
-        foreach (Processor processor in Processors)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            if (!processor.CheckProcessorDependancies())
-            {
-                throw new Exception($"Runtime Doesn't Have the Dependancies for Processor: {processor.GetType().Name} ");
-            }
-            processor.Start();
+            StartEntities(entity);
         }
-
         // Entity.Create<Entities.Enemy>();
     }
 
     public virtual void Process(double delta)
     {
-        ProcessServices(delta);
+        TimerService.Process(delta);
 
-        foreach (Processor processor in Processors)
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            processor.Process(delta);
+            ProcessEntities(entity, delta);
         }
     }
 
     public virtual void PhysicsProcess(double delta)
     {
-        foreach (Processor processor in Processors)
+
+
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            processor.PhysicsProcess(delta);
+            PhysicsProcessEntities(entity, delta);
         }
     }
 
     public virtual void InputProcess(InputEvent inputEvent)
     {
-        foreach (Processor processor in Processors)
+
+
+        foreach (Entity entity in Game.Runtime.Entities)
         {
-            processor.InputProcess(inputEvent);
+            InputProcessEntities(entity, inputEvent);
         }
+    }
+
+    //* Entities
+    public virtual void StartEntities(Entity entity)
+    {
+
+    }
+
+    public virtual void ProcessEntities(Entity entity, double delta)
+    {
+
+    }
+
+    public virtual void PhysicsProcessEntities(Entity entity, double delta)
+    {
+
+    }
+
+    public virtual void InputProcessEntities(Entity entity, InputEvent inputEvent)
+    {
+
     }
 }

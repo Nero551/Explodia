@@ -51,6 +51,8 @@ public class EquipProcessor : Processor
             }
         }
     }
+    //TODO- rethink the framework (might merge processors and services into 1 thing)
+    //* if u think about it , processors are just services with an updateLoop , so why are they seperate?
 
     public void Unequip(Entity entity, string name) { }
 }
